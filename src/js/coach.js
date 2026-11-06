@@ -28,23 +28,26 @@ const COACH = {
     { code: 'S&C', title: 'Strength & Conditioning Coach', year: 2021, image: 'assets/img/certificates/cert-02.jpg' },
   ],
 
-  // Arc cards, in order. 10–12 work best.
+  // Arc cards, in order (photos mixed with text cards).
   //   photo: { src: path WITHOUT extension (.webp + .jpg), alt }
   //   info:  { label, value, text, red: true for the brand-red card }
-  // Spare photos (very dark, not used): slides/slide-01, slides/slide-06
+  // Old stock photos (not used now): assets/img/slides/
   cards: [
-    { src: 'assets/img/slides/slide-02', alt: 'Female athlete on a black background' },
-    { src: 'assets/img/slides/slide-03', alt: 'Chalk dust flying from an athlete’s hands' },
+    { src: 'assets/img/about-me-01', alt: 'Coach correcting a client’s lunge with a resistance band' },
+    { src: 'assets/img/about-me-02', alt: 'Coach guiding a client through a kneeling stretch' },
     { value: '300+', text: 'Clients coached' },
-    { src: 'assets/img/slides/slide-04', alt: 'Woman doing a dumbbell curl in low light' },
-    { src: 'assets/img/slides/slide-05', alt: 'Chalked hand gripping a barbell' },
+    { src: 'assets/img/about-me-03', alt: 'Coach spotting a push-up on a balance trainer' },
+    { src: 'assets/img/about-me-04', alt: 'Coach spotting a dumbbell press on the bench' },
+    { src: 'assets/img/about-me-05', alt: 'Coach checking a client’s dumbbell row' },
     { label: 'Today’s session', value: 'Leg day', text: '5 × 5 · 90 s rest', red: true },
-    { src: 'assets/img/slides/slide-07', alt: 'Female athlete in a dark gym' },
-    { src: 'assets/img/slides/slide-08', alt: 'Loaded barbell on the gym floor, black and white' },
+    { src: 'assets/img/about-me-06', alt: 'Coach adjusting a client’s posture at the squat rack' },
+    { src: 'assets/img/about-me-07', alt: 'Coach watching a client’s goblet squat' },
     { value: '+40 kg', text: 'Deadlift in 6 months' },
-    { src: 'assets/img/slides/slide-09', alt: 'Woman with a lifting belt under a barbell' },
-    { src: 'assets/img/slides/slide-10', alt: 'Athlete training with dumbbells in a dark gym' },
+    { src: 'assets/img/about-me-08', alt: 'Coach spotting a barbell squat' },
+    { src: 'assets/img/about-me-09', alt: 'Coach spotting a bench press' },
+    { src: 'assets/img/about-me-10', alt: 'Coach guiding a seated row' },
     { value: '1:1', text: 'Coaching, every rep checked' },
+    { src: 'assets/img/about-me-11', alt: 'Coach going through a training plan on a tablet' },
   ],
 };
 
@@ -145,10 +148,10 @@ const COACH = {
   /* ---------- 4. Reveal on scroll: handled by reveal.js ([data-reveal]) ---------- */
 
   /* ---------- 5. Arc cards ---------- */
-  // A big, gently curved arc needs many cards around the circle, so the list is
-  // repeated (12 cards → 24 on the ring). Copies sit on the opposite side of the
-  // circle, so the same card is never on screen twice.
-  const MIN_TILES = 24;
+  // The arc needs enough cards around the circle; a short list is repeated
+  // (copies sit on the opposite side, so the same card is never on screen twice).
+  // 15 cards now → no repeats.
+  const MIN_TILES = 14;
   const GAP = 0.2;                // space between cards, as a share of card width
   const copies = Math.max(1, Math.ceil(MIN_TILES / COACH.cards.length));
   const tiles = Array.from({ length: copies }, () => COACH.cards).flat();
@@ -164,7 +167,7 @@ const COACH = {
       li.innerHTML = `
         <picture>
           <source type="image/webp" data-srcset="${card.src}.webp">
-          <img data-src="${card.src}.jpg" alt="${isCopy ? '' : card.alt}" width="1200" height="928" decoding="async">
+          <img data-src="${card.src}.jpg" alt="${isCopy ? '' : card.alt}" width="640" height="960" decoding="async">
         </picture>`;
     } else {
       li.classList.add('coach__tile--info');

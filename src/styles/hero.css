@@ -20,7 +20,8 @@
   grid-template-rows: 1fr auto auto;
   gap: var(--space-l);
   min-height: 100svh;
-  padding: calc(var(--header-h) + var(--space-l)) var(--gutter) var(--space-l);
+  /* bottom: the slider row sits above the floating Telegram button */
+  padding: calc(var(--header-h) + var(--space-l)) var(--gutter) calc(var(--fab-size) + var(--space-m) + var(--space-s));
   background:
     radial-gradient(90% 70% at 70% 55%, var(--color-primary) 0%, var(--color-primary-dark) 55%, var(--color-primary-deep) 100%);
 }
@@ -245,6 +246,16 @@
 }
 .hero__toggle:hover { color: var(--color-text); }
 
+/* Very narrow phones: tighter slider row so PAUSE still fits */
+@media (max-width: 359px) {
+  .hero__controls { gap: var(--space-xs); }
+  .hero__nav { gap: .6rem; }
+  .hero__dot { gap: .3rem; }
+  .hero__dot-line { width: .5rem; }
+  .hero__dot.is-active .hero__dot-line { width: 1.5rem; }
+  .hero__toggle { letter-spacing: .1em; }
+}
+
 @keyframes hero-progress-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes hero-progress-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
@@ -291,6 +302,9 @@
     align-self: stretch;
     justify-content: center;
     padding-left: var(--space-l);
+    /* Keep clear of the floating Telegram button in the bottom-right corner:
+       panel padding (2 gutters) + this = gutter + button + gap */
+    margin-right: calc(var(--fab-size) + var(--space-m) - var(--gutter));
   }
 
   .hero__nav {
@@ -318,6 +332,32 @@
   .hero__toggle {
     writing-mode: vertical-rl;
     margin-top: var(--space-m);
+  }
+}
+
+/* ============ Phone: bigger type, in proportion to the tall screen ============ */
+@media (max-width: 767px) {
+  .hero__title { font-size: clamp(4.25rem, 20vw, 7rem); }
+  .hero__subtitle { font-size: clamp(1.1rem, 4.6vw, 1.35rem); }
+  .hero__link {
+    margin-top: var(--space-l);
+    padding-block: var(--space-s);
+    font-size: .95rem;
+  }
+}
+
+/* ============ Tablet: bigger type, in proportion to the tall screen ============ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero__content { max-width: 85%; }
+  .hero__title { font-size: clamp(5.25rem, 12vw, 8.5rem); }
+  .hero__subtitle {
+    margin-top: var(--space-l);
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  }
+  .hero__link {
+    margin-top: var(--space-xl);
+    padding-block: var(--space-s);
+    font-size: 1rem;
   }
 }
 

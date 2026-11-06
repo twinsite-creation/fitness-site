@@ -26,8 +26,8 @@
 /* ---------- Stage ---------- */
 .coach__stage {
   --stage-h: min(90vw, 448px);    /* coach photo height; mobile: compact, so arc + coach + name fit one screen */
-  --card-w: 140px;
-  --card-h: 108px;
+  --card-w: 182px;                 /* +30% */
+  --card-h: 140px;
   --ring-r: 600px;                 /* cylinder radius — coach.js sets it from the card width */
   --ring-perspective: 1000px;
   --arc-level: .2;                 /* set from COACH.arcLevel */
@@ -110,6 +110,7 @@
 }
 .coach__tile img {
   object-fit: cover;
+  object-position: 50% 30%;        /* portrait photos: keep faces in the landscape card */
   filter: grayscale(var(--photo-gray)) contrast(1.05);
 }
 .coach__tile--photo::after {
@@ -422,8 +423,8 @@
   .coach__stage {
     /* Fits one screen under the header */
     --stage-h: clamp(460px, calc(100svh - var(--header-h) - 4rem), 720px);
-    --card-w: 180px;
-    --card-h: 139px;
+    --card-w: 234px;
+    --card-h: 181px;
     --ring-perspective: 1600px;
   }
   .coach__arc {
@@ -438,8 +439,8 @@
   .coach__stage {
     /* Coach, gallery and the info block all fit one screen under the header */
     --stage-h: clamp(520px, calc(100svh - var(--header-h) - 2.5rem), 740px);
-    --card-w: 220px;
-    --card-h: 170px;
+    --card-w: 286px;
+    --card-h: 221px;
     --ring-perspective: 2000px;
   }
   .coach__arc {

@@ -10,27 +10,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Scroll reveal: hide [data-reveal] blocks before the first paint (reveal.js shows them) -->
+  <!-- Motion before the first paint: is-intro = page-load animation (hero.js ends it),
+       has-reveal = hide [data-reveal] blocks until they scroll in (reveal.js shows them) -->
   <script>
-    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('has-reveal');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('is-intro');
+      if ('IntersectionObserver' in window) document.documentElement.classList.add('has-reveal');
     }
   </script>
 
-  <link rel="stylesheet" href="src/styles/tokens.css">
-  <link rel="stylesheet" href="src/styles/base.css">
-  <link rel="stylesheet" href="src/styles/header.css">
-  <link rel="stylesheet" href="src/styles/hero.css">
-  <link rel="stylesheet" href="src/styles/sections.css">
-  <link rel="stylesheet" href="src/styles/coach.css">
-  <link rel="stylesheet" href="src/styles/about.css">
+  <!-- ?v=… : bump this number after changing CSS/JS so browsers load the new files -->
+  <link rel="stylesheet" href="src/styles/tokens.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/base.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/header.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/hero.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/sections.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/coach.css?v=20261106w">
+  <link rel="stylesheet" href="src/styles/about.css?v=20261106w">
 
-  <script src="src/js/main.js" defer></script>
-  <script src="src/js/reveal.js" defer></script>
-  <script src="src/js/hero.js" defer></script>
-  <script src="src/js/video.js" defer></script>
-  <script src="src/js/coach.js" defer></script>
-  <script src="src/js/about.js" defer></script>
+  <script src="src/js/main.js?v=20261106w" defer></script>
+  <script src="src/js/reveal.js?v=20261106w" defer></script>
+  <script src="src/js/hero.js?v=20261106w" defer></script>
+  <script src="src/js/video.js?v=20261106w" defer></script>
+  <script src="src/js/coach.js?v=20261106w" defer></script>
+  <script src="src/js/telegram-float.js?v=20261106w" defer></script>
+  <script src="src/js/counter.js?v=20261106w" defer></script>
+  <script src="src/js/about.js?v=20261106w" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -228,7 +233,6 @@
                 <h3 class="about__title">Deadlift</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Hamstrings, glutes, back, grip</dd></div>
-                  <div><dt>Focus</dt><dd>Hip hinge, neutral spine, bar path</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 3–6 reps</dd></div>
                 </dl>
               </article>
@@ -236,7 +240,6 @@
                 <h3 class="about__title">Hip thrust</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Glutes, hamstrings</dd></div>
-                  <div><dt>Focus</dt><dd>Full lockout, pelvic control</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
                 </dl>
               </article>
@@ -244,7 +247,6 @@
                 <h3 class="about__title">Bench press</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Chest, front delts, triceps</dd></div>
-                  <div><dt>Focus</dt><dd>Setup, bar path, control</dd></div>
                   <div><dt>Typical set</dt><dd>3–5 sets × 5–8 reps</dd></div>
                 </dl>
               </article>
@@ -252,7 +254,6 @@
                 <h3 class="about__title">Romanian deadlift</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Hamstrings, glutes, lower back</dd></div>
-                  <div><dt>Focus</dt><dd>Slow lowering, hips back</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 6–10 reps</dd></div>
                 </dl>
               </article>
@@ -260,7 +261,6 @@
                 <h3 class="about__title">Bulgarian split squat</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Quads, glutes, adductors</dd></div>
-                  <div><dt>Focus</dt><dd>Balance, knee over foot</dd></div>
                   <div><dt>Typical set</dt><dd>3 sets × 8–10 reps per leg</dd></div>
                 </dl>
               </article>
@@ -268,7 +268,6 @@
                 <h3 class="about__title">Pull-ups / Lat pulldown</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Lats, upper back, biceps</dd></div>
-                  <div><dt>Focus</dt><dd>Shoulder blades, full range</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 6–10 reps</dd></div>
                 </dl>
               </article>
@@ -276,7 +275,6 @@
                 <h3 class="about__title">Overhead press</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Shoulders, triceps, core</dd></div>
-                  <div><dt>Focus</dt><dd>Ribs down, stacked joints</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 5–8 reps</dd></div>
                 </dl>
               </article>
@@ -284,7 +282,6 @@
                 <h3 class="about__title">Dumbbell row</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Lats, rhomboids, rear delts</dd></div>
-                  <div><dt>Focus</dt><dd>Elbow path, no twisting</dd></div>
                   <div><dt>Typical set</dt><dd>3 sets × 10–12 reps per arm</dd></div>
                 </dl>
               </article>
@@ -292,7 +289,6 @@
                 <h3 class="about__title">Front squat</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Quads, glutes, upper back, core</dd></div>
-                  <div><dt>Focus</dt><dd>Upright torso, elbows high</dd></div>
                   <div><dt>Typical set</dt><dd>3–5 sets × 4–6 reps</dd></div>
                 </dl>
               </article>
@@ -300,7 +296,6 @@
                 <h3 class="about__title">Sumo deadlift</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Glutes, inner thighs, hamstrings</dd></div>
-                  <div><dt>Focus</dt><dd>Wide stance, knees out</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 4–6 reps</dd></div>
                 </dl>
               </article>
@@ -308,7 +303,6 @@
                 <h3 class="about__title">Walking lunges</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Quads, glutes, adductors</dd></div>
-                  <div><dt>Focus</dt><dd>Long steps, steady balance</dd></div>
                   <div><dt>Typical set</dt><dd>3 sets × 10–12 steps per leg</dd></div>
                 </dl>
               </article>
@@ -316,7 +310,6 @@
                 <h3 class="about__title">Leg press</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Quads, glutes</dd></div>
-                  <div><dt>Focus</dt><dd>Full range, controlled tempo</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
                 </dl>
               </article>
@@ -324,7 +317,6 @@
                 <h3 class="about__title">Kettlebell swing</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Glutes, hamstrings, back</dd></div>
-                  <div><dt>Focus</dt><dd>Snap the hips, not the arms</dd></div>
                   <div><dt>Typical set</dt><dd>4–5 sets × 15–20 reps</dd></div>
                 </dl>
               </article>
@@ -332,7 +324,6 @@
                 <h3 class="about__title">Farmer’s walk</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Grip, traps, core</dd></div>
-                  <div><dt>Focus</dt><dd>Tall posture, short steps</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 carries × 30–40 m</dd></div>
                 </dl>
               </article>
@@ -340,7 +331,6 @@
                 <h3 class="about__title">Incline dumbbell press</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Upper chest, front delts, triceps</dd></div>
-                  <div><dt>Focus</dt><dd>Slow lowering, elbows at 45°</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
                 </dl>
               </article>
@@ -348,7 +338,6 @@
                 <h3 class="about__title">Seated cable row</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Mid back, lats, rear delts</dd></div>
-                  <div><dt>Focus</dt><dd>Chest up, shoulders back</dd></div>
                   <div><dt>Typical set</dt><dd>3–4 sets × 10–12 reps</dd></div>
                 </dl>
               </article>
@@ -356,7 +345,6 @@
                 <h3 class="about__title">Cable glute kickback</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Glutes</dd></div>
-                  <div><dt>Focus</dt><dd>Slow squeeze, no lower-back arch</dd></div>
                   <div><dt>Typical set</dt><dd>3 sets × 12–15 reps per leg</dd></div>
                 </dl>
               </article>
@@ -364,7 +352,6 @@
                 <h3 class="about__title">Hanging leg raise</h3>
                 <dl class="about__facts">
                   <div><dt>Works</dt><dd>Lower abs, hip flexors, grip</dd></div>
-                  <div><dt>Focus</dt><dd>No swinging, curl the pelvis up</dd></div>
                   <div><dt>Typical set</dt><dd>3 sets × 8–12 reps</dd></div>
                 </dl>
               </article>
@@ -398,7 +385,10 @@
     <!-- ============ 4. CTA STRIP ============ -->
     <section class="cta-strip" aria-labelledby="cta-title">
       <div class="container">
-        <h2 class="cta-strip__title" id="cta-title" data-reveal>Book your first session</h2>
+        <div class="cta-strip__intro" data-reveal>
+          <h2 class="cta-strip__title" id="cta-title">Book your first session</h2>
+          <p class="cta-strip__note">Leave your name and phone — I’ll call you back within a day.</p>
+        </div>
         <form class="cta-strip__form" action="#" method="post" data-reveal>
           <label class="field">
             <span class="field__label">Name</span>
@@ -551,9 +541,13 @@
     <!-- ============ 7. RESULT ============ -->
     <section class="section result" id="results" aria-labelledby="result-title">
       <div class="container result__inner">
-        <p class="eyebrow" data-reveal>Client result</p>
-        <p class="result__counter" data-counter data-target="120" data-reveal>0<span class="result__unit">kg</span></p>
-        <h2 class="result__title" id="result-title" data-reveal>Deadlift after 12 months</h2>
+        <p class="eyebrow" data-reveal>Client results</p>
+        <!-- Change the number in data-target AND in both texts below -->
+        <p class="result__counter" data-counter data-target="234" data-reveal>
+          <span class="visually-hidden">234 kg</span>
+          <span aria-hidden="true"><span data-counter-value>234</span><span class="result__unit">kg</span></span>
+        </p>
+        <h2 class="result__title" id="result-title" data-reveal>Lost by my clients in a year</h2>
       </div>
     </section>
 
@@ -595,9 +589,25 @@
     <div class="container footer__inner">
       <a class="header__logo" href="#top" data-reveal>Coach<span class="header__logo-dot">.</span>Name</a>
       <p class="footer__copy" data-reveal>© 2026 Coach Name. All rights reserved.</p>
-      <ul class="footer__social" data-reveal>
-        <li><a href="#" aria-label="Instagram">Instagram</a></li>
-        <li><a href="#" aria-label="Telegram">Telegram</a></li>
+      <ul class="footer__social">
+        <!-- Put the real profile links in href -->
+        <li>
+          <a class="footer__icon" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle class="footer__icon-dot" cx="17.2" cy="6.8" r=".6"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="footer__icon" href="#" aria-label="Telegram" data-telegram>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20.5 4.2 3.6 10.9c-.6.2-.6 1.1 0 1.3l4.2 1.4 1.6 5.1c.2.6.9.7 1.3.3l2.4-2.3 4.4 3.2c.5.4 1.2.1 1.3-.5l2.9-14.1c.1-.7-.6-1.3-1.2-1.1z"/>
+              <path d="m7.8 13.6 9-6.1-6.6 7.4"/>
+            </svg>
+          </a>
+        </li>
       </ul>
     </div>
   </footer>

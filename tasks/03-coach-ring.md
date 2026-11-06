@@ -8,8 +8,9 @@ Reference: owner's carousel video (mental-health site) — mechanics and composi
   `.jpg` = soft dark side edges. Lower body always fades out (mask).
   Any photo proportions work. `arcLevel` = arc height as a share of the photo (aim at neck / shoulders).
   Current: `center-coach-02.webp` (waist-up), arcLevel .27. Previous full-height photo: `center-coach.webp`, arcLevel .2.
-- `cards` — 12 arc cards: 8 photos (`assets/img/slides/slide-NN`, .webp + .jpg, 1200×928)
-  + 4 info cards (300+ clients · Today's session — Leg day (red) · +40 kg deadlift · 1:1 coaching).
+- `cards` — 15 arc cards: 11 photos of the coach with clients (`assets/img/about-me-01…11`,
+  .webp 640px + .jpg) + 4 info cards (300+ clients · Today's session — Leg day (red) ·
+  +40 kg deadlift · 1:1 coaching). Old stock photos in `assets/img/slides/` are no longer used.
 - Headline "Just about me" ("Just" in brand red) + one Barlow 500 line.
 - Bottom-left: glass card — YOUR COACH / ANNA KOVAL / role / facts, thin red line.
 - Bottom-right: certificates as barbell plates (2 now; 1–3 work): matte plate, full title
@@ -20,12 +21,12 @@ Reference: owner's carousel video (mental-health site) — mechanics and composi
 ## Arc
 - Cards on a cylinder at neck / shoulder height: `rotateY(angle) translateZ(--ring-r)`,
   container with perspective; back cards hidden (backface), sides fade with a mask.
-- The arc spans the full screen width (past the container). The 12 cards are repeated
-  to 24 on the ring (copies opposite, aria-hidden); coach.js sets the radius from the
+- The arc spans the full screen width (past the container). Short card lists are repeated
+  (MIN_TILES = 14; copies opposite, aria-hidden) — 15 cards now, no repeats; coach.js sets the radius from the
   card width so the gaps stay even on every screen.
 - Stage height follows the screen (`100svh − header`), so on a laptop the coach,
   the arc and the coach card fit one screen.
-- Card 220×170 desktop / 180×139 tablet / 140×108 mobile, `--radius-m`, `--color-border`, glass.
+- Card 286×221 desktop / 234×181 tablet / 182×140 mobile (+30%), `--radius-m`, `--color-border`, glass.
 - Photos: grayscale `--photo-gray` + brand-red multiply `--photo-tint`, grain.
 
 ## Motion

@@ -230,18 +230,16 @@
 /* ---------- Facts: works / focus / typical set ---------- */
 .about__facts {
   display: grid;
-  gap: var(--space-s);
+  grid-template-columns: max-content 1fr;   /* label column = longest label, never wraps */
+  gap: var(--space-s) var(--space-m);
+  align-items: baseline;
   margin-top: var(--space-m);
   padding-block: var(--space-m);
   border-block: var(--line-thin) solid var(--color-border);
 }
-.about__facts > div {
-  display: grid;
-  grid-template-columns: 7.5rem 1fr;
-  gap: var(--space-s);
-  align-items: baseline;
-}
+.about__facts > div { display: contents; }   /* dt / dd sit in the shared columns above */
 .about__facts dt {
+  white-space: nowrap;
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: var(--tracking-label);
@@ -260,7 +258,6 @@
 /* Narrow columns (mobile, tablet): compact facts so every exercise
    takes the same number of lines — no empty gap under shorter ones */
 @media (max-width: 1199px) {
-  .about__facts > div { grid-template-columns: 5.5rem 1fr; }
   .about__facts dd { font-size: var(--fs-small); letter-spacing: .02em; }
 }
 

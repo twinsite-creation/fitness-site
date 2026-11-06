@@ -64,10 +64,11 @@
   --space-m: 1.5rem;
   --space-l: 2.5rem;
   --space-xl: 4rem;
-  --space-section: clamp(5rem, 10vw, 9rem);
+  --space-section: clamp(2.5rem, 5vw, 3.75rem);   /* gap between sections: 40px phone → 60px desktop */
   --container: 1280px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --header-h: 5rem;
+  --fab-size: 56px;        /* floating Telegram button */
 
   /* --- Shape & motion --- */
   --radius-s: 4px;

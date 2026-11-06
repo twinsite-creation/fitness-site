@@ -21,9 +21,15 @@
   const KCAL_FULL = 400;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  const BASE_SPEED = 6;          // deg per second → one turn per minute
-  const AUTO_EVERY = 2600;       // ms between automatic text changes
-  const RESUME_AFTER = 4000;     // ms the globe stays paused after a tap / click
+  // Timing: desktop / phone. On a phone the exercise changes faster
+  // (no hover there, so the auto change is the main way to see them).
+  const phone = window.matchMedia('(max-width: 767px)');
+  const T = () => (phone.matches
+    ? { speed: 20, autoEvery: 1500, resumeAfter: 2000 }
+    : { speed: 6, autoEvery: 2600, resumeAfter: 4000 });
+  //  speed: deg per second (6 = one turn per minute)
+  //  autoEvery: ms between automatic exercise changes
+  //  resumeAfter: ms the globe stays paused after a tap / click / arrow
 
   /* ---------- 1. Globe geometry ----------
      Photos stay flat (2D, always facing you). Only their POSITIONS move around
@@ -99,7 +105,7 @@
 
   /* ---------- 3. Spin ---------- */
   let angle = 0;              // deg
-  let speed = BASE_SPEED;
+  let speed = T().speed;
   let hovering = false;
   let pausedUntil = 0;        // timestamp for tap / click pauses
   let lastAuto = 0;
@@ -143,12 +149,13 @@
     lastTime = now;
 
     const paused = hovering || now < pausedUntil || reducedMotion.matches;
-    const target = paused ? 0 : BASE_SPEED;
+    const target = paused ? 0 : T().speed;
     speed += (target - speed) * Math.min(dt * 3, 1);   // ease to stop / start
     angle = (angle + speed * dt) % 360;
 
     const front = render(dt);
-    if (!paused && now - lastAuto > AUTO_EVERY) {
+    // Switch as soon as a new photo comes to the front (but not more often than autoEvery)
+    if (!paused && now - lastAuto > T().autoEvery && front.cat !== activeCat) {
       lastAuto = now;
       current.setAttribute('aria-live', 'off');
       setActive(front.cat, front.tile);
@@ -194,7 +201,7 @@
     });
     tile.addEventListener('click', () => {
       setActive(tile.dataset.cat, tile);
-      pausedUntil = performance.now() + RESUME_AFTER;
+      pausedUntil = performance.now() + T().resumeAfter;
       lastAuto = pausedUntil;
     });
   });
@@ -206,7 +213,7 @@
     const match = geo.find((g) => g.cat === next);
     current.setAttribute('aria-live', 'polite');   // announce only user-chosen changes
     setActive(next, match ? match.tile : null);
-    pausedUntil = performance.now() + RESUME_AFTER;
+    pausedUntil = performance.now() + T().resumeAfter;
     lastAuto = pausedUntil;
   };
   root.querySelector('[data-about-prev]').addEventListener('click', () => step(-1));

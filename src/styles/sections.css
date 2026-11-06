@@ -3,7 +3,10 @@
    Placeholder styling only — each section gets its own task.
    ============================================ */
 
-.section { padding-block: var(--space-section); }
+/* One equal gap between all blocks of the page (sections have no own top/bottom padding) */
+.section { padding-block: 0; }
+main > * + *,
+.footer { margin-top: var(--space-section); }
 
 .placeholder-media {
   position: relative;
@@ -21,34 +24,65 @@
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
+
+/* Input = a dark "well" with a thin frame: clearly a field to type into */
 .field__input {
   width: 100%;
-  min-height: 3rem;
-  padding: var(--space-s) 0;
-  background: transparent;
-  border: 0;
-  border-bottom: var(--line-thin) solid var(--color-border);
-  transition: border-color var(--dur-fast) var(--ease-out);
+  min-height: 3.5rem;
+  padding: 0 var(--space-s);
+  background: var(--color-surface);   /* a touch lighter than the page: reads as a field */
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-m);
+  color: var(--color-text);
+  caret-color: var(--color-primary-light);
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
 }
-.field__input::placeholder { color: var(--color-text-muted); }
-.field__input:focus { outline: none; border-bottom-color: var(--color-text); }
+textarea.field__input {
+  min-height: 7rem;
+  padding-block: var(--space-s);
+  resize: vertical;
+}
+.field__input::placeholder { color: var(--color-text-muted); opacity: .7; }
+.field__input:hover { border-color: var(--color-line-soft); }
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-primary-light);
+}
+
+/* Browser autofill: keep our dark field and light text (no white box) */
+.field__input:-webkit-autofill,
+.field__input:-webkit-autofill:hover,
+.field__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text);
+  box-shadow: inset 0 0 0 100px var(--color-surface);   /* paints over the autofill colour */
+  caret-color: var(--color-primary-light);
+  transition: background-color 9999s;
+}
+
 
 /* --- 3. About: see about.css --- */
 
 /* --- 4. CTA strip --- */
 .cta-strip {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-section);   /* same gap inside the lines as between blocks */
   border-block: var(--line-thin) solid var(--color-border);
 }
+.cta-strip__intro { margin-bottom: var(--space-m); }
 .cta-strip__title {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--fs-h3);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
-  margin-bottom: var(--space-m);
+}
+.cta-strip__note {
+  margin-top: var(--space-xs);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
 }
 .cta-strip__form { display: grid; gap: var(--space-m); align-items: end; }
+.cta-strip__form .btn { min-height: 3.5rem; }
 
 /* --- 5. Formats --- */
 .formats__list {
@@ -56,8 +90,8 @@
   gap: var(--space-m);
   margin-top: var(--space-xl);
 }
-.format-card {
-  padding: var(--space-l);
+.format-card {                     /* compact: ~20% smaller than before */
+  padding: 2rem;
   background: var(--color-surface);
   border: var(--line-thin) solid var(--color-border);
   border-radius: var(--radius-m);
@@ -65,21 +99,26 @@
 .format-card__ring {
   display: grid;
   place-items: center;
-  width: 5rem;
+  width: 4rem;
   aspect-ratio: 1;
-  margin-bottom: var(--space-m);
+  margin-bottom: var(--space-s);
   border: 2px solid var(--color-primary-light);
   border-radius: 50%;
   font-family: var(--font-mono);
+  font-size: .85rem;
 }
 .format-card__ring::before { content: attr(data-value); }
 .format-card__title {
   font-family: var(--font-accent);
   font-weight: var(--fw-accent);
-  font-size: var(--fs-h3);
+  font-size: clamp(1.4rem, 2.1vw, 1.8rem);
   text-transform: uppercase;
 }
-.format-card__text { color: var(--color-text-muted); }
+.format-card__text {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: var(--color-text-muted);
+}
 
 /* --- 6. Video gallery --- */
 /* Mobile: swipe gallery + pagination. Tablet: 3 × 2 grid. Desktop: one row of 6. */
@@ -245,6 +284,7 @@
 .result__inner { text-align: center; }
 .result__counter {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;   /* digits keep their width while counting */
   font-size: clamp(5rem, 18vw, 14rem);
   line-height: 1;
 }
@@ -285,7 +325,74 @@
   gap: var(--space-m);
 }
 .footer__copy { font-size: var(--fs-small); color: var(--color-text-muted); }
-.footer__social { display: flex; gap: var(--space-m); font-size: var(--fs-small); }
+.footer__social { display: flex; gap: var(--space-s); }
+
+/* Social icons: brand-red outline icon in a brand-red circle; hover fills the circle red */
+.footer__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: var(--line-thin) solid var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-primary-light);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.footer__icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.footer__icon-dot { fill: currentColor; stroke: none; }
+.footer__icon:hover,
+.footer__icon:focus-visible {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+.footer__icon:focus-visible { outline: var(--line-thin) solid var(--color-primary-light); outline-offset: 3px; }
+
+/* Floating Telegram button (telegram-float.js).
+   --p: 0 = in the corner (filled brand red), 1 = landed on the footer icon (outline). */
+.tg-float {
+  --p: 0;
+  position: fixed;
+  right: max(var(--gutter), env(safe-area-inset-right));
+  bottom: calc(var(--space-m) + env(safe-area-inset-bottom));
+  z-index: 40;                       /* under the header and the mobile menu */
+  display: grid;
+  place-items: center;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  border: var(--line-thin) solid var(--color-primary);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) calc((1 - var(--p)) * 100%), transparent);
+  color: color-mix(in srgb, var(--color-primary-light) calc(var(--p) * 100%), var(--color-text));
+  transform-origin: center;
+  will-change: transform;
+}
+.tg-float svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tg-float:hover { background: var(--color-primary-dark); }
+.tg-float:focus-visible { outline: var(--line-thin) solid var(--color-primary-light); outline-offset: 3px; }
+
+/* The footer icon waits hidden until the floating button lands on it */
+.has-tg-float [data-telegram] { visibility: hidden; }
+.has-tg-float.tg-landed [data-telegram] { visibility: visible; }
+.tg-landed .tg-float { visibility: hidden; }
 
 @media (min-width: 768px) {
   .cta-strip__form { grid-template-columns: 1fr 1fr auto; }
@@ -297,9 +404,9 @@
   .cta-strip .container {
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: end;
+    align-items: center;
     gap: var(--space-xl);
   }
-  .cta-strip__title { margin-bottom: 0; }
+  .cta-strip__intro { margin-bottom: 0; max-width: 22rem; }
   .formats__list { grid-template-columns: repeat(4, 1fr); }
 }

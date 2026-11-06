@@ -79,4 +79,20 @@
   hero.classList.add('is-playing');
   goTo(0);
   setPaused(false);
+
+  /* ---------- 2. Page-load intro ---------- */
+  // While the intro plays (CSS, .is-intro on <html>), slide 1 stays put;
+  // autoplay and its progress line start when the intro is done.
+  const root = document.documentElement;
+  if (root.classList.contains('is-intro')) {
+    const INTRO_MS = 1500;
+    clearTimeout(timer);
+    hero.classList.remove('is-playing');
+    setTimeout(() => {
+      hero.classList.add('is-playing');
+      if (!userPaused) schedule(interval);
+    }, INTRO_MS);
+    // Drop the class once every intro animation has finished (so later slides don't replay it)
+    setTimeout(() => root.classList.remove('is-intro'), 2600);
+  }
 })();
