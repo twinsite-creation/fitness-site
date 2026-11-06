@@ -1,0 +1,334 @@
+/* ============================================
+   Hero — red panel, full-bleed photos, slider 01–05
+   Slide states (set by hero.js on text + photos): .is-active / .is-prev / waiting
+   ============================================ */
+
+.hero {
+  position: relative;
+}
+
+/* --- Red panel --- */
+.hero__panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+    "."
+    "content"
+    "controls";
+  grid-template-rows: 1fr auto auto;
+  gap: var(--space-l);
+  min-height: 100svh;
+  padding: calc(var(--header-h) + var(--space-l)) var(--gutter) var(--space-l);
+  background:
+    radial-gradient(90% 70% at 70% 55%, var(--color-primary) 0%, var(--color-primary-dark) 55%, var(--color-primary-deep) 100%);
+}
+
+/* --- Left: text --- */
+.hero__content {
+  grid-area: content;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero__slides { display: grid; }
+
+/* Waiting slides sit just below, invisible, and snap there without animation */
+.hero__slide {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+.hero__title > span { display: block; }
+.hero__title > .accent-line { padding-left: .55em; }
+
+.hero__subtitle {
+  margin-top: var(--space-m);
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: var(--fs-lead);
+  letter-spacing: var(--tracking-accent);
+  text-transform: uppercase;
+}
+
+.hero__title > span,
+.hero__subtitle {
+  opacity: 0;
+  transform: translateY(.6rem);
+  filter: blur(4px);
+}
+
+/* Active: rises into place, line by line */
+.hero__slide.is-active { visibility: visible; }
+.hero__slide.is-active .hero__title > span,
+.hero__slide.is-active .hero__subtitle {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: opacity var(--dur-slide) var(--ease-soft),
+              transform var(--dur-slide) var(--ease-out),
+              filter var(--dur-slide) var(--ease-soft);
+}
+.hero__slide.is-active .hero__title > span:nth-child(2) { transition-delay: .06s; }
+.hero__slide.is-active .hero__subtitle { transition-delay: .12s; }
+
+/* Previous: keeps moving up while it fades — one continuous flow */
+.hero__slide.is-prev { visibility: visible; }
+.hero__slide.is-prev .hero__title > span,
+.hero__slide.is-prev .hero__subtitle {
+  opacity: 0;
+  transform: translateY(-.6rem);
+  filter: blur(4px);
+  transition: opacity calc(var(--dur-slide) * .6) var(--ease-soft),
+              transform calc(var(--dur-slide) * .6) var(--ease-soft),
+              filter calc(var(--dur-slide) * .6) var(--ease-soft);
+}
+
+.hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin-top: var(--space-l);
+  padding-block: var(--space-xs);
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  border-bottom: var(--line-thin) solid var(--color-line-soft);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.hero__link-arrow { transition: transform var(--dur-med) var(--ease-out); }
+.hero__link:hover { border-bottom-color: var(--color-text); }
+.hero__link:hover .hero__link-arrow { transform: translateX(6px); }
+
+/* --- Background photo (full-bleed) --- */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__figure {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 25%;   /* keep the athlete in view on narrow screens */
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+/* New photo fades in ON TOP of the previous one (no dark dip between them),
+   and slowly settles from a slight zoom */
+.hero__figure.is-prev {
+  z-index: 1;
+  opacity: 1;
+  transform: none;
+}
+.hero__figure.is-active {
+  z-index: 2;
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--dur-slide) var(--ease-soft),
+              transform calc(var(--dur-slide) * 3) var(--ease-out);
+}
+
+/* Darkens the photo where the text sits */
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--color-primary-deep) 70%, transparent) 0%,
+      transparent 22%),
+    linear-gradient(to top,
+      color-mix(in srgb, var(--color-primary-deep) 92%, transparent) 0%,
+      color-mix(in srgb, var(--color-primary-deep) 55%, transparent) 40%,
+      transparent 70%);
+}
+
+/* Neon rim light near the coach */
+.hero__glow {
+  position: absolute;
+  z-index: 4;
+  right: 5%;
+  top: 15%;
+  width: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-neon-glow) 0%, var(--color-neon) 35%, transparent 70%);
+  filter: blur(80px);
+  opacity: .3;
+  mix-blend-mode: screen;
+}
+
+/* --- Slider controls --- */
+.hero__controls {
+  grid-area: controls;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+
+.hero__nav {
+  display: flex;
+  gap: var(--space-s);
+}
+
+.hero__dot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--color-text-on-red);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.hero__dot:hover,
+.hero__dot.is-active { color: var(--color-text); }
+
+.hero__dot-line {
+  position: relative;
+  display: block;
+  width: .75rem;
+  height: var(--line-thin);
+  background: var(--color-line-soft);
+  overflow: hidden;
+  transition: width var(--dur-slow) var(--ease-out),
+              height var(--dur-slow) var(--ease-out);
+}
+.hero__dot.is-active .hero__dot-line { width: 2.5rem; }
+
+/* Progress fill: its animationend moves the slider on */
+.hero__dot-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.hero__dot.is-active .hero__dot-line::after { transform: none; }
+.hero.is-playing .hero__dot.is-active .hero__dot-line::after {
+  animation: hero-progress-x var(--slide-interval) linear forwards;
+}
+.hero.is-paused .hero__dot.is-active .hero__dot-line::after {
+  animation-play-state: paused;
+}
+
+.hero__toggle {
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-on-red);
+}
+.hero__toggle:hover { color: var(--color-text); }
+
+@keyframes hero-progress-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes hero-progress-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* ============ Tablet / desktop ============ */
+@media (min-width: 768px) {
+  .hero {
+    height: 100svh;
+    min-height: 640px;
+  }
+
+  .hero__panel {
+    height: 100%;
+    min-height: 0;
+    grid-template-areas: "content controls";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 0;
+    padding: calc(var(--header-h) + var(--space-m)) calc(var(--gutter) * 2) var(--space-xl);  /* same side padding as the header */
+  }
+
+  .hero__content { max-width: 60%; }
+
+  .hero__figure { object-position: right center; }
+
+  .hero__shade {
+    background:
+      linear-gradient(to bottom,
+        color-mix(in srgb, var(--color-primary-deep) 70%, transparent) 0%,
+        transparent 22%),
+      linear-gradient(to right,
+        color-mix(in srgb, var(--color-primary-deep) 70%, transparent) 0%,
+        color-mix(in srgb, var(--color-primary-deep) 25%, transparent) 45%,
+        transparent 65%),
+      linear-gradient(to top,
+        color-mix(in srgb, var(--color-primary-deep) 50%, transparent) 0%,
+        transparent 35%);
+  }
+
+  /* Vertical slider on the right edge */
+  .hero__controls {
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: stretch;
+    justify-content: center;
+    padding-left: var(--space-l);
+  }
+
+  .hero__nav {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .hero__dot {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__dot-line {
+    width: var(--line-thin);
+    height: 1.75rem;
+  }
+  .hero__dot.is-active .hero__dot-line { width: var(--line-thin); height: 6rem; }
+
+  .hero__dot-line::after { transform: scaleY(0); transform-origin: top; }
+  .hero__dot.is-active .hero__dot-line::after { transform: none; }
+  .hero.is-playing .hero__dot.is-active .hero__dot-line::after {
+    animation-name: hero-progress-y;
+  }
+
+  .hero__toggle {
+    writing-mode: vertical-rl;
+    margin-top: var(--space-m);
+  }
+}
+
+/* ============ Reduced motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  .hero__title > span,
+  .hero__subtitle,
+  .hero__figure { transform: none !important; filter: none !important; }
+
+  /* Keep the slide timer: base.css shortens all animations for reduced motion */
+  .hero.is-playing .hero__dot.is-active .hero__dot-line::after {
+    animation-duration: var(--slide-interval) !important;
+  }
+}

@@ -1,0 +1,84 @@
+/* ============================================
+   Design tokens — fitness trainer site
+   Single source of truth. No hex colors outside this file.
+   ============================================ */
+
+:root {
+  /* --- Base (black, like the gym walls) --- */
+  --color-bg: #0A0A0C;
+  --color-surface: #141418;
+  --color-border: #26262D;
+
+  /* --- Brand / actions --- */
+  --color-primary: #A5101E;        /* main brand red: hero bg, CTA */
+  --color-primary-dark: #6E0A14;   /* hover, shadows, gradients */
+  --color-primary-deep: #3A0509;   /* gradient end on hero */
+  --color-primary-light: #C8323A;  /* thin lines, icons */
+
+  /* --- Neon / atmosphere (from the real gym lighting) --- */
+  --color-neon: #5D05C7;           /* glow spots, never text */
+  --color-neon-glow: #8B3DFF;      /* bright glow */
+  --glow-neon: 0 0 24px rgba(139, 61, 255, .55), 0 0 60px rgba(93, 5, 199, .35);
+
+  /* --- Text --- */
+  --color-text: #F5F2F0;
+  --color-text-muted: #9A98A3;
+  --color-text-on-red: rgba(245, 242, 240, .72);
+
+  /* --- Translucent helpers (overlays, lines) --- */
+  --color-line-soft: rgba(245, 242, 240, .25);   /* hero frame, dimmed lines */
+  --color-line-faint: rgba(245, 242, 240, .12);
+  --color-header-bg: rgba(10, 10, 12, .72);      /* header on scroll */
+  --color-overlay: rgba(10, 10, 12, .96);        /* mobile menu */
+  --color-primary-tint: rgba(165, 16, 30, .2);   /* brand red 20% over video/photos */
+  --color-glass: rgba(20, 20, 24, .72);          /* play button: dark translucent circle */
+
+  /* --- Photo treatment (coach ring slides) --- */
+  --photo-gray: .7;          /* grayscale amount */
+  --photo-tint: .35;         /* brand-red multiply layer strength */
+
+  /* --- Typography --- */
+  --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;  /* headlines, UPPERCASE */
+  --font-accent: "Barlow", "Helvetica Neue", Arial, sans-serif;      /* subtitles, eyebrows, buttons (500) */
+  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace; /* numbers, labels */
+
+  --fs-hero: clamp(3.5rem, 8vw, 8.5rem);
+  --fs-h2: clamp(3rem, 6vw, 5.5rem);
+  --fs-h3: clamp(1.75rem, 2.6vw, 2.25rem);
+  --fs-lead: clamp(1.05rem, 1.4vw, 1.3rem);
+  --fs-body: 1.0625rem;
+  --fs-small: .8125rem;
+  --fs-label: .75rem;
+
+  --fw-accent: 500;
+  --lh-tight: .9;
+  --lh-body: 1.6;
+  --tracking-display: .02em;
+  --tracking-accent: .06em;
+  --tracking-label: .18em;
+
+  /* --- Spacing --- */
+  --space-xs: .5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: 4rem;
+  --space-section: clamp(5rem, 10vw, 9rem);
+  --container: 1280px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-h: 5rem;
+
+  /* --- Shape & motion --- */
+  --radius-s: 4px;
+  --radius-m: 10px;
+  --radius-l: 24px;
+  --line-thin: 1px;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-soft: cubic-bezier(.45, 0, .2, 1);   /* smooth crossfades */
+  --dur-fast: .25s;
+  --dur-med: .6s;
+  --dur-slow: 1.1s;
+  --slide-interval: 2s;
+  --dur-slide: .8s;        /* hero slide change (text + photo) */
+}

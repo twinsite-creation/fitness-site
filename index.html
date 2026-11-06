@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coach Name — Personal Strength Training</title>
+  <meta name="description" content="Personal strength training with a coach who checks every rep. Book your first session.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Scroll reveal: hide [data-reveal] blocks before the first paint (reveal.js shows them) -->
+  <script>
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('has-reveal');
+    }
+  </script>
+
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/header.css">
+  <link rel="stylesheet" href="src/styles/hero.css">
+  <link rel="stylesheet" href="src/styles/sections.css">
+  <link rel="stylesheet" href="src/styles/coach.css">
+  <link rel="stylesheet" href="src/styles/about.css">
+
+  <script src="src/js/main.js" defer></script>
+  <script src="src/js/reveal.js" defer></script>
+  <script src="src/js/hero.js" defer></script>
+  <script src="src/js/video.js" defer></script>
+  <script src="src/js/coach.js" defer></script>
+  <script src="src/js/about.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ 1. HEADER ============ -->
+  <header class="header" data-header>
+    <div class="header__inner">
+      <a class="header__logo" href="#top" aria-label="Coach Name — home">
+        Coach<span class="header__logo-dot">.</span>Name
+      </a>
+
+      <button class="header__burger" type="button" aria-expanded="false" aria-controls="site-nav" data-burger>
+        <span class="visually-hidden">Menu</span>
+        <span class="header__burger-line header__burger-line--top" aria-hidden="true"></span>
+        <span class="header__burger-line header__burger-line--bottom" aria-hidden="true"></span>
+      </button>
+
+      <nav class="header__nav" id="site-nav" aria-label="Main" data-nav>
+        <ul class="header__list">
+          <li><a class="header__link" href="#about">About</a></li>
+          <li><a class="header__link" href="#formats">Formats</a></li>
+          <li><a class="header__link" href="#results">Results</a></li>
+          <li><a class="header__link" href="#contacts">Contacts</a></li>
+        </ul>
+        <a class="btn btn--primary header__cta" href="#contacts">Book a session</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ 2. HERO ============ -->
+    <section class="hero" id="top" aria-roledescription="carousel" aria-label="Highlights" data-hero>
+      <div class="hero__panel">
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="hero__content">
+          <h1 class="visually-hidden">Coach Name — personal strength training coach</h1>
+
+          <div class="hero__slides" aria-live="off" data-slides>
+            <div class="hero__slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5" data-slide>
+              <p class="hero__title"><span>Strength</span> <span class="accent-line">under control</span></p>
+              <p class="hero__subtitle">Personal strength training</p>
+            </div>
+            <div class="hero__slide" role="group" aria-roledescription="slide" aria-label="2 of 5" data-slide>
+              <p class="hero__title"><span>Technique</span> <span class="accent-line">first</span></p>
+              <p class="hero__subtitle">Every rep, coached</p>
+            </div>
+            <div class="hero__slide" role="group" aria-roledescription="slide" aria-label="3 of 5" data-slide>
+              <p class="hero__title"><span>A plan</span> <span class="accent-line">built for you</span></p>
+              <p class="hero__subtitle">Programs shaped around your goals</p>
+            </div>
+            <div class="hero__slide" role="group" aria-roledescription="slide" aria-label="4 of 5" data-slide>
+              <p class="hero__title"><span>Results</span> <span class="accent-line">in numbers</span></p>
+              <p class="hero__subtitle">Progress you can see on the bar</p>
+            </div>
+            <div class="hero__slide" role="group" aria-roledescription="slide" aria-label="5 of 5" data-slide>
+              <p class="hero__title"><span>Start</span> <span class="accent-line">today</span></p>
+              <p class="hero__subtitle">Your first session is a meet &amp; greet</p>
+            </div>
+          </div>
+
+          <a class="hero__link" href="#contacts">
+            Book a session
+            <span class="hero__link-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <!-- Full-bleed background photos, one per slide (same order as the slides above) -->
+        <div class="hero__media">
+          <img class="hero__figure is-active" src="assets/img/slide-hero-01.jpg" alt="" width="1375" height="768" fetchpriority="high" data-slide-image>
+          <img class="hero__figure" src="assets/img/slide-hero-02.jpg" alt="" width="1375" height="768" decoding="async" data-slide-image>
+          <img class="hero__figure" src="assets/img/slide-hero-03.jpg" alt="" width="1375" height="768" decoding="async" data-slide-image>
+          <img class="hero__figure" src="assets/img/slide-hero-04.jpg" alt="" width="1375" height="768" decoding="async" data-slide-image>
+          <img class="hero__figure" src="assets/img/slide-hero-05.jpg" alt="" width="1375" height="768" decoding="async" data-slide-image>
+          <div class="hero__shade" aria-hidden="true"></div>
+          <div class="hero__glow" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__controls">
+          <ol class="hero__nav" aria-label="Choose slide" data-slider-nav>
+            <li><button class="hero__dot is-active" type="button" aria-label="Slide 1" aria-current="true" data-dot><span class="hero__dot-num">01</span><span class="hero__dot-line" aria-hidden="true"></span></button></li>
+            <li><button class="hero__dot" type="button" aria-label="Slide 2" data-dot><span class="hero__dot-num">02</span><span class="hero__dot-line" aria-hidden="true"></span></button></li>
+            <li><button class="hero__dot" type="button" aria-label="Slide 3" data-dot><span class="hero__dot-num">03</span><span class="hero__dot-line" aria-hidden="true"></span></button></li>
+            <li><button class="hero__dot" type="button" aria-label="Slide 4" data-dot><span class="hero__dot-num">04</span><span class="hero__dot-line" aria-hidden="true"></span></button></li>
+            <li><button class="hero__dot" type="button" aria-label="Slide 5" data-dot><span class="hero__dot-num">05</span><span class="hero__dot-line" aria-hidden="true"></span></button></li>
+          </ol>
+          <button class="hero__toggle" type="button" aria-pressed="false" data-slider-toggle>Pause</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2b. COACH — photo ring behind the coach ============
+         All content (coach photo, slides, name, facts, certificates) comes from
+         the COACH object at the top of src/js/coach.js -->
+    <section class="section coach" id="coach" aria-labelledby="coach-title" data-coach>
+      <div class="container">
+        <header class="coach__head">
+          <h2 class="section-title coach__title" id="coach-title" data-reveal><span class="accent">Just</span> about me</h2>
+          <p class="coach__sub" data-reveal>Strength coaching built on technique, patience and real numbers.</p>
+        </header>
+
+        <div class="coach__stage" data-coach-stage data-reveal>
+          <span class="coach__glow" aria-hidden="true"></span>
+
+          <!-- 3D arc of cards behind the coach's head and shoulders (filled by coach.js) -->
+          <div class="coach__arc" data-coach-arc>
+            <ul class="coach__ring" data-coach-ring></ul>
+          </div>
+          <div class="grain" aria-hidden="true"></div>
+
+          <figure class="coach__figure" data-coach-figure>
+            <img class="coach__photo" data-coach-photo alt="" width="736" height="1104" decoding="async">
+          </figure>
+
+          <!-- Info: bottom-left / bottom-right on desktop, stacked below the photo on mobile -->
+          <div class="coach__info">
+            <article class="coach__card coach__about" data-reveal>
+              <p class="coach__eyebrow">Your coach</p>
+              <h3 class="coach__name" data-coach-name></h3>
+              <p class="coach__role" data-coach-role></p>
+              <ul class="coach__facts" data-coach-facts></ul>
+            </article>
+
+            <section class="coach__awards" aria-label="Certificates" data-reveal>
+              <h3 class="coach__eyebrow">Certified</h3>
+              <ul class="coach__award-list" data-coach-certs></ul>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificate lightbox: Esc or click on the dark background closes it -->
+      <dialog class="lightbox" aria-label="Certificate" data-lightbox>
+        <div class="lightbox__body">
+          <button class="lightbox__close" type="button" aria-label="Close" data-lightbox-close>×</button>
+          <div class="lightbox__media" data-lightbox-media></div>
+          <p class="lightbox__caption" data-lightbox-caption></p>
+        </div>
+      </dialog>
+    </section>
+
+    <!-- ============ 3. ABOUT — training globe ============ -->
+    <section class="section about" id="about" aria-labelledby="about-title" data-about>
+      <div class="container">
+        <header class="about__head">
+          <p class="eyebrow" data-reveal>My training split</p>
+          <h2 class="section-title" id="about-title" data-reveal>Training <span class="accent">I prefer</span></h2>
+        </header>
+
+        <div class="about__grid">
+          <!-- Decorative rotating globe of exercise photos (the ‹ › arrows on the right are the accessible control) -->
+          <div class="about__stage" data-reveal>
+          <div class="globe" aria-hidden="true" data-globe>
+            <div class="globe__tilt">
+              <div class="globe__sphere" data-globe-sphere>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="deadlift"><img data-src="assets/img/about/02-deadlift.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="hip-thrust"><img data-src="assets/img/about/03-hip-thrust.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="bench"><img data-src="assets/img/about/04-bench-press.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="rdl"><img data-src="assets/img/about/05-romanian-deadlift.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="split-squat"><img data-src="assets/img/about/06-bulgarian-split-squat.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="pull-ups"><img data-src="assets/img/about/07-pull-ups.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="press"><img data-src="assets/img/about/08-overhead-press.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="row"><img data-src="assets/img/about/09-dumbbell-row.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="front-squat"><img data-src="assets/img/about/11-front-squat.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="sumo"><img data-src="assets/img/about/12-sumo-deadlift.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="lunges"><img data-src="assets/img/about/13-walking-lunges.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="leg-press"><img data-src="assets/img/about/14-leg-press.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="kb-swing"><img data-src="assets/img/about/15-kettlebell-swing.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="farmers"><img data-src="assets/img/about/16-farmers-walk.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="incline"><img data-src="assets/img/about/17-incline-dumbbell-press.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="cable-row"><img data-src="assets/img/about/18-seated-cable-row.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="kickback"><img data-src="assets/img/about/19-glute-kickback.jpg" alt="" width="800" height="600" decoding="async"></button>
+            <button class="globe__tile" type="button" tabindex="-1" data-cat="leg-raise"><img data-src="assets/img/about/20-hanging-leg-raise.jpg" alt="" width="800" height="600" decoding="async"></button>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+          <div class="about__panel" data-reveal>
+            <div class="about__top">
+              <p class="about__label">Exercise</p>
+              <div class="about__nav">
+                <button class="about__arrow" type="button" aria-label="Previous exercise" data-about-prev>‹</button>
+                <span class="about__count"><span data-about-index>01</span> / 18</span>
+                <button class="about__arrow" type="button" aria-label="Next exercise" data-about-next>›</button>
+              </div>
+            </div>
+
+            <!-- One slide per exercise, stacked in the same spot (order = counter order).
+                 Edit texts and % here. The panel keeps the height of the longest one, so nothing jumps. -->
+            <div class="about__slides" aria-live="off" data-about-current>
+              <article class="about__slide is-active" data-cat="deadlift" data-percent="6" data-kcal="230">
+                <h3 class="about__title">Deadlift</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Hamstrings, glutes, back, grip</dd></div>
+                  <div><dt>Focus</dt><dd>Hip hinge, neutral spine, bar path</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 3–6 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="hip-thrust" data-percent="6" data-kcal="180" aria-hidden="true">
+                <h3 class="about__title">Hip thrust</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Glutes, hamstrings</dd></div>
+                  <div><dt>Focus</dt><dd>Full lockout, pelvic control</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="bench" data-percent="4" data-kcal="170" aria-hidden="true">
+                <h3 class="about__title">Bench press</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Chest, front delts, triceps</dd></div>
+                  <div><dt>Focus</dt><dd>Setup, bar path, control</dd></div>
+                  <div><dt>Typical set</dt><dd>3–5 sets × 5–8 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="rdl" data-percent="5" data-kcal="200" aria-hidden="true">
+                <h3 class="about__title">Romanian deadlift</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Hamstrings, glutes, lower back</dd></div>
+                  <div><dt>Focus</dt><dd>Slow lowering, hips back</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 6–10 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="split-squat" data-percent="5" data-kcal="210" aria-hidden="true">
+                <h3 class="about__title">Bulgarian split squat</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Quads, glutes, adductors</dd></div>
+                  <div><dt>Focus</dt><dd>Balance, knee over foot</dd></div>
+                  <div><dt>Typical set</dt><dd>3 sets × 8–10 reps per leg</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="pull-ups" data-percent="5" data-kcal="220" aria-hidden="true">
+                <h3 class="about__title">Pull-ups / Lat pulldown</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Lats, upper back, biceps</dd></div>
+                  <div><dt>Focus</dt><dd>Shoulder blades, full range</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 6–10 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="press" data-percent="4" data-kcal="170" aria-hidden="true">
+                <h3 class="about__title">Overhead press</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Shoulders, triceps, core</dd></div>
+                  <div><dt>Focus</dt><dd>Ribs down, stacked joints</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 5–8 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="row" data-percent="4" data-kcal="160" aria-hidden="true">
+                <h3 class="about__title">Dumbbell row</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Lats, rhomboids, rear delts</dd></div>
+                  <div><dt>Focus</dt><dd>Elbow path, no twisting</dd></div>
+                  <div><dt>Typical set</dt><dd>3 sets × 10–12 reps per arm</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="front-squat" data-percent="7" data-kcal="220" aria-hidden="true">
+                <h3 class="about__title">Front squat</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Quads, glutes, upper back, core</dd></div>
+                  <div><dt>Focus</dt><dd>Upright torso, elbows high</dd></div>
+                  <div><dt>Typical set</dt><dd>3–5 sets × 4–6 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="sumo" data-percent="7" data-kcal="230" aria-hidden="true">
+                <h3 class="about__title">Sumo deadlift</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Glutes, inner thighs, hamstrings</dd></div>
+                  <div><dt>Focus</dt><dd>Wide stance, knees out</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 4–6 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="lunges" data-percent="5" data-kcal="230" aria-hidden="true">
+                <h3 class="about__title">Walking lunges</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Quads, glutes, adductors</dd></div>
+                  <div><dt>Focus</dt><dd>Long steps, steady balance</dd></div>
+                  <div><dt>Typical set</dt><dd>3 sets × 10–12 steps per leg</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="leg-press" data-percent="5" data-kcal="180" aria-hidden="true">
+                <h3 class="about__title">Leg press</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Quads, glutes</dd></div>
+                  <div><dt>Focus</dt><dd>Full range, controlled tempo</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="kb-swing" data-percent="4" data-kcal="360" aria-hidden="true">
+                <h3 class="about__title">Kettlebell swing</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Glutes, hamstrings, back</dd></div>
+                  <div><dt>Focus</dt><dd>Snap the hips, not the arms</dd></div>
+                  <div><dt>Typical set</dt><dd>4–5 sets × 15–20 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="farmers" data-percent="4" data-kcal="280" aria-hidden="true">
+                <h3 class="about__title">Farmer’s walk</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Grip, traps, core</dd></div>
+                  <div><dt>Focus</dt><dd>Tall posture, short steps</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 carries × 30–40 m</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="incline" data-percent="5" data-kcal="160" aria-hidden="true">
+                <h3 class="about__title">Incline dumbbell press</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Upper chest, front delts, triceps</dd></div>
+                  <div><dt>Focus</dt><dd>Slow lowering, elbows at 45°</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 8–12 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="cable-row" data-percent="5" data-kcal="150" aria-hidden="true">
+                <h3 class="about__title">Seated cable row</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Mid back, lats, rear delts</dd></div>
+                  <div><dt>Focus</dt><dd>Chest up, shoulders back</dd></div>
+                  <div><dt>Typical set</dt><dd>3–4 sets × 10–12 reps</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="kickback" data-percent="4" data-kcal="130" aria-hidden="true">
+                <h3 class="about__title">Cable glute kickback</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Glutes</dd></div>
+                  <div><dt>Focus</dt><dd>Slow squeeze, no lower-back arch</dd></div>
+                  <div><dt>Typical set</dt><dd>3 sets × 12–15 reps per leg</dd></div>
+                </dl>
+              </article>
+              <article class="about__slide" data-cat="leg-raise" data-percent="4" data-kcal="150" aria-hidden="true">
+                <h3 class="about__title">Hanging leg raise</h3>
+                <dl class="about__facts">
+                  <div><dt>Works</dt><dd>Lower abs, hip flexors, grip</dd></div>
+                  <div><dt>Focus</dt><dd>No swinging, curl the pelvis up</dd></div>
+                  <div><dt>Typical set</dt><dd>3 sets × 8–12 reps</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <!-- Two numbers per exercise: data-percent (my focus) and data-kcal (calories) on each slide above -->
+            <div class="about__stats">
+              <div class="about__stat">
+                <p class="about__stat-label">My focus <span>share of my clients’ training time</span></p>
+                <div class="about__meter">
+                  <span class="about__value"><span data-about-percent>7</span><small>%</small></span>
+                  <span class="about__track" aria-hidden="true"><span class="about__fill" data-about-fill style="--w: 84"></span></span>
+                </div>
+              </div>
+              <div class="about__stat">
+                <p class="about__stat-label">Calories burned <span>average per 30 min*</span></p>
+                <div class="about__meter">
+                  <span class="about__value"><span data-about-kcal>220</span><small>kcal</small></span>
+                  <span class="about__track" aria-hidden="true"><span class="about__fill" data-about-kcal-fill style="--w: 55"></span></span>
+                </div>
+              </div>
+              <p class="about__note">* Estimate for a 70 kg person, rest between sets included.</p>
+            </div>
+
+            <a class="btn btn--primary about__cta" href="#contacts">Book a session</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. CTA STRIP ============ -->
+    <section class="cta-strip" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 class="cta-strip__title" id="cta-title" data-reveal>Book your first session</h2>
+        <form class="cta-strip__form" action="#" method="post" data-reveal>
+          <label class="field">
+            <span class="field__label">Name</span>
+            <input class="field__input" type="text" name="name" autocomplete="name" placeholder="Your name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Phone</span>
+            <input class="field__input" type="tel" name="phone" autocomplete="tel" placeholder="+1 (000) 000-0000" required>
+          </label>
+          <button class="btn btn--primary" type="submit">Book a session</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 5. TRAINING FORMATS ============ -->
+    <section class="section formats" id="formats" aria-labelledby="formats-title">
+      <div class="container">
+        <p class="eyebrow" data-reveal>Training formats</p>
+        <h2 class="section-title" id="formats-title" data-reveal>Pick <span class="accent">your format</span></h2>
+
+        <ul class="formats__list">
+          <li class="format-card" data-reveal>
+            <span class="format-card__ring" data-value="1:1" aria-hidden="true"></span>
+            <h3 class="format-card__title">Personal</h3>
+            <p class="format-card__text">One-on-one sessions in the gym.</p>
+          </li>
+          <li class="format-card" data-reveal>
+            <span class="format-card__ring" data-value="2" aria-hidden="true"></span>
+            <h3 class="format-card__title">Split</h3>
+            <p class="format-card__text">Train with a partner, same attention.</p>
+          </li>
+          <li class="format-card" data-reveal>
+            <span class="format-card__ring" data-value="6" aria-hidden="true"></span>
+            <h3 class="format-card__title">Small group</h3>
+            <p class="format-card__text">Up to six people, one goal.</p>
+          </li>
+          <li class="format-card" data-reveal>
+            <span class="format-card__ring" data-value="∞" aria-hidden="true"></span>
+            <h3 class="format-card__title">Online</h3>
+            <p class="format-card__text">Plan, video check-ins, weekly review.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 6. VIDEO — gallery of session clips ============
+         Mobile: swipe gallery with pagination. Tablet: 3 × 2 grid. Desktop: one row of 6. -->
+    <section class="section video" id="video" aria-labelledby="video-title" data-video-gallery>
+      <div class="container">
+        <header class="video__head">
+          <p class="eyebrow" data-reveal>On video</p>
+          <h2 class="section-title" id="video-title" data-reveal>Inside <span class="accent">my sessions</span></h2>
+        </header>
+
+        <ul class="video__track" data-video-track>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-01.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-01.webp">
+                <img class="video__poster" src="assets/img/about-me-01.jpg" alt="Coach correcting a client’s lunge with a resistance band" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach correcting a client’s lunge with a resistance band" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-02.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-02.webp">
+                <img class="video__poster" src="assets/img/about-me-02.jpg" alt="Coach guiding a client through a kneeling stretch" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach guiding a client through a kneeling stretch" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-03.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-03.webp">
+                <img class="video__poster" src="assets/img/about-me-03.jpg" alt="Coach spotting a push-up on a balance trainer" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach spotting a push-up on a balance trainer" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-04.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-04.webp">
+                <img class="video__poster" src="assets/img/about-me-04.jpg" alt="Coach spotting a dumbbell press on the bench" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach spotting a dumbbell press on the bench" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-05.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-05.webp">
+                <img class="video__poster" src="assets/img/about-me-05.jpg" alt="Coach checking a client’s dumbbell row" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach checking a client’s dumbbell row" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+          <li class="video__item" data-reveal>
+            <!-- Add the clip path to data-video-src when it is ready (e.g. assets/video/session-06.mp4) -->
+            <div class="video__card" data-video data-video-src="">
+              <picture>
+                <source type="image/webp" srcset="assets/img/about-me-06.webp">
+                <img class="video__poster" src="assets/img/about-me-06.jpg" alt="Coach adjusting a client’s posture at the squat rack" width="640" height="1000" loading="lazy" decoding="async">
+              </picture>
+              <div class="video__tint" aria-hidden="true"></div>
+              <button class="video__play" type="button" aria-label="Play video: Coach adjusting a client’s posture at the squat rack" data-video-toggle>
+                <svg class="video__icon video__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8v12.4a.6.6 0 0 0 .9.5l9.9-6.2a.6.6 0 0 0 0-1L8.9 5.3a.6.6 0 0 0-.9.5z"/></svg>
+                <svg class="video__icon video__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Mobile only: which clip you are on + tap to jump -->
+        <div class="video__pager" data-video-pager>
+          <span class="video__count" aria-hidden="true"><span data-video-index>01</span> / <span data-video-total>06</span></span>
+          <ol class="video__dots" aria-label="Choose a video"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7. RESULT ============ -->
+    <section class="section result" id="results" aria-labelledby="result-title">
+      <div class="container result__inner">
+        <p class="eyebrow" data-reveal>Client result</p>
+        <p class="result__counter" data-counter data-target="120" data-reveal>0<span class="result__unit">kg</span></p>
+        <h2 class="result__title" id="result-title" data-reveal>Deadlift after 12 months</h2>
+      </div>
+    </section>
+
+    <!-- ============ 8. CONTACTS ============ -->
+    <section class="section contacts" id="contacts" aria-labelledby="contacts-title">
+      <div class="container contacts__grid">
+        <div class="contacts__info">
+          <p class="eyebrow" data-reveal>Contacts</p>
+          <h2 class="section-title" id="contacts-title" data-reveal>Let's <span class="accent">train</span></h2>
+          <dl class="contacts__list" data-reveal>
+            <div><dt>Phone</dt><dd><a href="tel:+10000000000">+1 (000) 000-0000</a></dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:hello@example.com">hello@example.com</a></dd></div>
+            <div><dt>Gym</dt><dd>Street address, City</dd></div>
+            <div><dt>Hours</dt><dd>Mon–Sat, 7:00–21:00</dd></div>
+          </dl>
+        </div>
+
+        <form class="contacts__form" action="#" method="post" data-reveal>
+          <label class="field">
+            <span class="field__label">Name</span>
+            <input class="field__input" type="text" name="name" autocomplete="name" placeholder="Your name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Phone</span>
+            <input class="field__input" type="tel" name="phone" autocomplete="tel" placeholder="+1 (000) 000-0000" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Goal</span>
+            <textarea class="field__input" name="message" rows="3" placeholder="What do you want to achieve?"></textarea>
+          </label>
+          <button class="btn btn--primary" type="submit">Book a session</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 9. FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="header__logo" href="#top" data-reveal>Coach<span class="header__logo-dot">.</span>Name</a>
+      <p class="footer__copy" data-reveal>© 2026 Coach Name. All rights reserved.</p>
+      <ul class="footer__social" data-reveal>
+        <li><a href="#" aria-label="Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="Telegram">Telegram</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

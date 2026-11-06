@@ -1,0 +1,462 @@
+/* ============================================
+   Coach — 3D arc of cards turning behind the coach's head and shoulders
+   coach.js fills the content (COACH object) and turns the ring.
+   ============================================ */
+
+.coach {
+  overflow: clip;            /* the arc never causes horizontal scroll */
+  background: var(--color-bg);
+}
+
+.coach__head {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.coach__sub {
+  margin-top: var(--space-s);
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: var(--fs-lead);
+  letter-spacing: var(--tracking-accent);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Stage ---------- */
+.coach__stage {
+  --stage-h: min(90vw, 448px);    /* coach photo height; mobile: compact, so arc + coach + name fit one screen */
+  --card-w: 140px;
+  --card-h: 108px;
+  --ring-r: 600px;                 /* cylinder radius — coach.js sets it from the card width */
+  --ring-perspective: 1000px;
+  --arc-level: .2;                 /* set from COACH.arcLevel */
+  position: relative;
+  margin-top: var(--space-l);
+}
+
+/* Keeps the photo area's height; info blocks flow below it on mobile */
+.coach__stage::before {
+  content: "";
+  display: block;
+  height: var(--stage-h);
+}
+
+/* Soft neon spot behind the coach */
+.coach__glow {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: min(70vw, 560px);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-neon) 0%, transparent 65%);
+  opacity: .28;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ---------- Arc: cards on a cylinder around the coach ---------- */
+/* Centred at neck / shoulder height (COACH.arcLevel); sides fade out with a mask */
+.coach__arc {
+  position: absolute;
+  left: 50%;
+  width: 100vw;              /* the gallery runs to the screen edges, past the container */
+  translate: -50% 0;
+  top: calc(var(--stage-h) * var(--arc-level) - var(--card-h));
+  height: calc(var(--card-h) * 2);
+  perspective: var(--ring-perspective);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);
+  will-change: transform;
+}
+
+.coach__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Each card faces outwards from the cylinder axis: centre cards look straight
+   at you, side cards turn away and shrink; cards at the back are hidden */
+.coach__tile {
+  position: absolute;
+  left: calc(var(--card-w) / -2);
+  top: calc(var(--card-h) / -2);
+  width: var(--card-w);
+  height: var(--card-h);
+  overflow: hidden;
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transform: rotateY(var(--angle)) translateZ(var(--ring-r));
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Photo cards: mostly grey + a light brand-red wash */
+.coach__tile picture,
+.coach__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.coach__tile img {
+  object-fit: cover;
+  filter: grayscale(var(--photo-gray)) contrast(1.05);
+}
+.coach__tile--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary);
+  mix-blend-mode: multiply;
+  opacity: var(--photo-tint);
+  pointer-events: none;
+}
+
+/* Info cards */
+.coach__tile--info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: .25rem;
+  padding: calc(var(--card-w) * .08);
+}
+.coach__tile--info.is-red {
+  background: var(--color-primary);
+  border-color: var(--color-primary-light);
+}
+
+.coach__tile-label {
+  margin-bottom: auto;
+  font-family: var(--font-mono);
+  font-size: calc(var(--card-w) * .045);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-on-red);
+}
+.coach__tile-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: calc(var(--card-w) * .16);
+  line-height: 1;
+  text-transform: uppercase;
+}
+.coach__tile-value.is-word {
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  letter-spacing: var(--tracking-accent);
+}
+.coach__tile-text {
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: calc(var(--card-w) * .055);
+  letter-spacing: var(--tracking-accent);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.is-red .coach__tile-text { color: var(--color-text-on-red); }
+
+/* Grain over the cards, under the coach */
+.coach__stage > .grain {
+  z-index: 150;
+  height: var(--stage-h);
+  bottom: auto;
+  -webkit-mask-image: radial-gradient(closest-side, black 55%, transparent);
+  mask-image: radial-gradient(closest-side, black 55%, transparent);
+}
+
+/* ---------- Coach (always in front of every card) ---------- */
+.coach__figure {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 200;
+  height: var(--stage-h);
+  aspect-ratio: 2 / 3;        /* coach.js sets the real photo proportions */
+  translate: -50% 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.coach__photo {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  /* The lower body melts into the background — no hard cut */
+  -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 96%);
+  mask-image: linear-gradient(to bottom, black 62%, transparent 96%);
+}
+
+/* JPEG with a dark background: also fade the sides into the page black */
+.coach__figure:not(.is-cutout) .coach__photo {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 2%, black 24%, black 76%, transparent 98%),
+    linear-gradient(to bottom, black 62%, transparent 96%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 2%, black 24%, black 76%, transparent 98%),
+    linear-gradient(to bottom, black 62%, transparent 96%);
+  mask-composite: intersect;
+}
+
+/* ---------- Info blocks ---------- */
+.coach__info {
+  position: relative;
+  z-index: 300;
+  display: grid;
+  gap: var(--space-m);
+  margin-top: var(--space-m);
+}
+
+/* Scroll reveal comes from reveal.js (base.css). Inside the stage:
+   the coach appears first (fade + slight zoom), then the card arc, then the info blocks.
+   Only opacity / scale here — translate and transform are used for centring and parallax. */
+.has-reveal .coach__stage:not(.is-revealed) .coach__figure { opacity: 0; scale: .94; }
+.has-reveal .coach__stage:not(.is-revealed) .coach__arc { opacity: 0; }
+.has-reveal .coach__stage:not(.is-revealed) .coach__glow { opacity: 0; }
+.coach__stage.is-revealed .coach__figure {
+  transition: opacity 1.4s var(--ease-out) .15s, scale 1.6s var(--ease-out) .15s;
+}
+.coach__stage.is-revealed .coach__arc { transition: opacity 1.6s var(--ease-out) .55s; }
+.coach__stage.is-revealed .coach__glow { transition: opacity 2s var(--ease-out) .3s; }
+
+.coach__about { --reveal-delay: .7s; }
+.coach__awards { --reveal-delay: .85s; }
+
+/* Left: about the coach (glass card, thin red line) */
+.coach__card {
+  padding: var(--space-m);
+  background: var(--color-glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-m);
+  box-shadow: inset 2px 0 0 var(--color-primary);
+}
+
+.coach__eyebrow {
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.coach__name {
+  margin-top: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.coach__role {
+  margin-top: var(--space-xs);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.coach__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-s);
+  margin-top: var(--space-s);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.coach__fact-num { color: var(--color-text); }
+
+/* Right: certificates as barbell plates (title engraved around the rim) */
+.coach__awards { text-align: center; }
+
+.coach__award-list {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-m);
+  margin-top: var(--space-s);
+}
+
+.coach__award {
+  display: block;
+  width: 128px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.coach__award:focus-visible { outline: var(--line-thin) solid var(--color-primary-light); outline-offset: 4px; }
+
+.coach__plate { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* Matte iron: soft light from the top left */
+.coach__plate-hi { stop-color: var(--color-surface); }
+.coach__plate-lo { stop-color: var(--color-bg); }
+
+.coach__plate-rim,
+.coach__plate-ring,
+.coach__plate-hub {
+  fill: none;
+  stroke-width: .6;
+  transition: stroke var(--dur-fast) var(--ease-out);
+}
+.coach__plate-rim  { stroke: var(--color-border); stroke-width: 1; }
+.coach__plate-ring { stroke: var(--color-line-soft); }
+.coach__plate-hub  { stroke: var(--color-line-faint); fill: var(--color-bg); }
+
+.coach__plate-text {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  fill: var(--color-text-muted);
+}
+.coach__plate-dot { fill: var(--color-primary-light); font-size: 4px; }
+
+.coach__plate-code {
+  font-family: var(--font-display);
+  font-size: 19px;
+  letter-spacing: .04em;
+  fill: var(--color-text);
+}
+.coach__plate-year {
+  font-family: var(--font-mono);
+  font-size: 6.4px;
+  letter-spacing: .12em;
+  fill: var(--color-text-muted);
+}
+
+/* Hover: the rim lights up in brand red — nothing moves */
+.coach__award:hover .coach__plate-rim,
+.coach__award:focus-visible .coach__plate-rim { stroke: var(--color-primary-light); }
+.coach__award:hover .coach__plate-ring { stroke: var(--color-text-muted); }
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  max-width: min(92vw, 760px);
+  padding: 0;
+  margin: auto;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+}
+.lightbox::backdrop { background: var(--color-overlay); }
+
+.lightbox__body { position: relative; }
+
+.lightbox__media img {
+  display: block;
+  max-height: 80vh;
+  width: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-m);
+}
+
+.lightbox__placeholder {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-s);
+  width: min(86vw, 640px);
+  aspect-ratio: 4 / 3;
+  padding: var(--space-l);
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.lightbox__placeholder strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text);
+}
+
+.lightbox__caption {
+  margin-top: var(--space-s);
+  text-align: center;
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  letter-spacing: var(--tracking-accent);
+  color: var(--color-text-muted);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-glass);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .coach__stage {
+    /* Fits one screen under the header */
+    --stage-h: clamp(460px, calc(100svh - var(--header-h) - 4rem), 720px);
+    --card-w: 180px;
+    --card-h: 139px;
+    --ring-perspective: 1600px;
+  }
+  .coach__arc {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  .coach__info { grid-template-columns: 1fr 1fr; align-items: end; }
+}
+
+/* ---------- Desktop: info blocks sit over the bottom corners ---------- */
+@media (min-width: 1200px) {
+  .coach__stage {
+    /* Coach, gallery and the info block all fit one screen under the header */
+    --stage-h: clamp(520px, calc(100svh - var(--header-h) - 2.5rem), 740px);
+    --card-w: 220px;
+    --card-h: 170px;
+    --ring-perspective: 2000px;
+  }
+  .coach__arc {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  }
+
+  .coach__info {
+    position: absolute;
+    inset: auto 0 var(--space-l);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0;
+    pointer-events: none;
+  }
+  .coach__info > * { pointer-events: auto; }
+  .coach__card { width: 280px; }
+}
+

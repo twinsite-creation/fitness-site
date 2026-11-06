@@ -1,0 +1,176 @@
+/* ============================================
+   Header — transparent over hero, dark + blur on scroll
+   ============================================ */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+}
+
+/* Dark + blur background lives on a pseudo-element:
+   backdrop-filter on .header itself would trap the fixed mobile menu inside the header box */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-header-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: var(--line-thin) solid var(--color-border);
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out);
+  pointer-events: none;
+}
+.header.is-scrolled::before { opacity: 1; }
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+}
+
+.header__logo {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+.header__logo-dot { color: var(--color-text-on-red); }
+.is-scrolled .header__logo-dot,
+.footer .header__logo-dot { color: var(--color-primary-light); }
+
+/* --- Burger (mobile) --- */
+.header__burger {
+  position: relative;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+}
+
+/* Both lines sit at the exact center; closed = ±4px apart, open = a centered X */
+.header__burger-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28px;
+  height: 2px;
+  margin: -1px 0 0 -14px;
+  background: var(--color-text);
+  border-radius: 1px;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+.header__burger-line--top    { transform: translateY(-4px); }
+.header__burger-line--bottom { transform: translateY(4px); }
+.header__burger[aria-expanded="true"] .header__burger-line--top    { transform: rotate(45deg); }
+.header__burger[aria-expanded="true"] .header__burger-line--bottom { transform: rotate(-45deg); }
+
+/* --- Nav: mobile = full-screen overlay --- */
+.header__nav {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: var(--space-l);
+  padding: var(--header-h) var(--gutter) var(--space-l);
+  overflow-y: auto;
+  background: var(--color-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-med) var(--ease-out),
+              visibility 0s linear var(--dur-med);
+}
+
+.header__nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur-med) var(--ease-out), visibility 0s;
+}
+
+.header__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+  text-align: center;
+}
+
+.header__link {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 8.4vw, 2.8rem); /* 30% smaller than before */
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.header__link:hover { color: var(--color-primary-light); }
+
+.header__cta { align-self: center; }
+
+/* --- Desktop --- */
+@media (min-width: 768px) {
+  .header__inner { padding-inline: calc(var(--gutter) * 2); }
+}
+
+@media (min-width: 1200px) {
+  .header__burger { display: none; }
+
+  .header__nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-l);
+    padding: 0;
+    overflow: visible;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+
+  .header__list {
+    flex-direction: row;
+    gap: var(--space-l);
+  }
+
+  .header__link {
+    position: relative;
+    font-family: var(--font-accent);
+    font-weight: var(--fw-accent);
+    font-size: var(--fs-small);
+    letter-spacing: var(--tracking-accent);
+    color: var(--color-text-on-red);
+  }
+  .header__link::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: var(--line-thin);
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .header__link:hover { color: var(--color-text); }
+  .header__link:hover::after { transform: scaleX(1); }
+  .is-scrolled .header__link { color: var(--color-text-muted); }
+  .is-scrolled .header__link:hover { color: var(--color-text); }
+
+  /* On the red hero the red button would vanish — outline it until scroll */
+  .header:not(.is-scrolled) .header__cta {
+    background: transparent;
+    box-shadow: inset 0 0 0 var(--line-thin) var(--color-line-soft);
+  }
+  .header:not(.is-scrolled) .header__cta:hover {
+    background: var(--color-primary-deep);
+  }
+}

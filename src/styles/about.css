@@ -1,0 +1,272 @@
+/* ============================================
+   About — rotating photo globe + training split
+   about.js places tiles on the sphere, spins it (--depth per tile)
+   and swaps the panel text on hover / tap / front tile.
+   ============================================ */
+
+.about__head { margin-bottom: var(--space-xl); }
+
+.about__grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+/* ---------- Globe ---------- */
+/* The column is a size container, so the globe always fits its half */
+.about__stage { container-type: inline-size; }
+
+.globe {
+  --size: min(560px, 100cqi);
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  margin-inline: auto;
+}
+
+.globe__tilt,
+.globe__sphere {
+  position: absolute;
+  inset: 0;
+}
+
+/* Flat photos. about.js moves them around the globe (translate),
+   scales them by depth and sets opacity / stacking order every frame.
+   Landscape 4:3, width ≈ 85% of the globe radius (radius = 40% of the globe).
+   Big on purpose: neighbours overlap; the closer photo is always on top.
+   (.2 = no overlap at all, .26 = previous size, .338 = +30%.) */
+.globe__tile {
+  --tile-w: calc(var(--size) * .338);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--tile-w);
+  aspect-ratio: 4 / 3;
+  margin: calc(var(--tile-w) * -.375) 0 0 calc(var(--tile-w) * -.5);
+  padding: 0;
+  overflow: hidden;
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  opacity: 0;              /* until about.js places it */
+  cursor: pointer;
+  will-change: transform, opacity;
+}
+
+.globe__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(var(--photo-gray)) contrast(1.05);   /* same look as the Coach block cards */
+}
+
+/* Light brand-red wash over any photo — no need to recolour the files */
+.globe__tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary);
+  mix-blend-mode: multiply;
+  opacity: var(--photo-tint);
+  pointer-events: none;
+}
+
+/* Faded photos at the sides / back: no clicks through them */
+.globe__tile.is-back { pointer-events: none; }
+
+/* ---------- Panel ---------- */
+.about__panel { max-width: 34rem; }
+
+.about__slides {
+  display: grid;
+  margin-top: var(--space-s);
+}
+
+/* All slides share one grid cell: the panel is as tall as the longest one,
+   so the content below never jumps when the exercise changes */
+.about__slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-med) var(--ease-out),
+              visibility 0s linear var(--dur-med);
+}
+.about__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur-med) var(--ease-out), visibility 0s;
+}
+
+.about__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+
+.about__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--color-text-muted);
+}
+.about__count { min-width: 7ch; text-align: center; white-space: nowrap; }
+.about__count > span { color: var(--color-text); }
+
+.about__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-text);
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
+}
+.about__arrow:hover { border-color: var(--color-primary); background: var(--color-primary); }
+
+.about__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3.25rem);   /* longest name fits one line in the half column */
+  white-space: nowrap;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.about__stats {
+  display: grid;
+  gap: var(--space-m);
+  margin-top: var(--space-m);
+}
+
+.about__stat-label {
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-accent);
+  text-transform: uppercase;
+}
+.about__stat-label span {
+  margin-left: var(--space-xs);
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text-muted);
+}
+
+.about__meter {
+  display: grid;
+  grid-template-columns: 5.6em 1fr;   /* same number column (fits "360 kcal") → both bars line up */
+  align-items: center;
+  gap: var(--space-s);
+  margin-top: var(--space-xs);
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+}
+
+.about__value {
+  font-family: var(--font-mono);
+  line-height: 1;
+  white-space: nowrap;
+}
+.about__value small {
+  margin-left: .15em;
+  font-size: .4em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.about__note {
+  font-size: var(--fs-label);
+  color: var(--color-text-muted);
+}
+
+.about__track {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* about.js sets --w (0–100) for each bar */
+.about__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--w) * 1%);
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+.about__fill::after {   /* neon tip */
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--color-neon-glow);
+  box-shadow: var(--glow-neon);
+}
+
+/* ---------- Facts: works / focus / typical set ---------- */
+.about__facts {
+  display: grid;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+  padding-block: var(--space-m);
+  border-block: var(--line-thin) solid var(--color-border);
+}
+.about__facts > div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--space-s);
+  align-items: baseline;
+}
+.about__facts dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.about__facts dd {
+  font-family: var(--font-accent);
+  font-weight: var(--fw-accent);
+  letter-spacing: var(--tracking-accent);
+}
+
+.about__cta { margin-top: var(--space-l); }
+
+/* ---------- Layout ---------- */
+/* Narrow columns (mobile, tablet): compact facts so every exercise
+   takes the same number of lines — no empty gap under shorter ones */
+@media (max-width: 1199px) {
+  .about__facts > div { grid-template-columns: 5.5rem 1fr; }
+  .about__facts dd { font-size: var(--fs-small); letter-spacing: .02em; }
+}
+
+/* Tablet + desktop: two equal columns, globe | text */
+@media (min-width: 768px) {
+  .about__grid { grid-template-columns: 1fr 1fr; }
+  .about__panel { max-width: none; }
+}
+
