@@ -39,7 +39,7 @@ See `references/README.md`. Main hero reference: `references/Hero-Concept.jpeg`.
    each slide changes text AND photo (`assets/img/slide-hero-01…05.jpg`, same order as slides)
 3. Coach — coach cutout in the centre, 3D arc of 12 cards (photos + info) turning behind her head,
    headline + info blocks (coach bottom-left, certificates as barbell plates bottom-right); data in `COACH` (src/js/coach.js)
-4. About ("Training I prefer") — rotating globe of exercise photos (left) + panel (right): exercise, facts, my focus % + avg kcal per 30 min + button
+4. About ("What we will do") — rotating globe of exercise photos (left) + panel (right): exercise, facts, my focus % + avg kcal per 30 min + button
 5. CTA strip — name + phone + button in one row
 6. Training formats — 4 cards with circular indicators
 7. Video gallery ("Inside my sessions") — 6 portrait preview cards (assets/img/about-me-01…06), play button; mobile: swipe + pagination
