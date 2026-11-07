@@ -150,6 +150,9 @@ button { background: none; border: 0; cursor: pointer; }
     text-align: center;
   }
 
+  /* Main headings 4px smaller on phones */
+  .section-title { font-size: calc(3rem - 4px); }
+
   /* Hero: centred text, so the stepped second line and the link centre too */
   /* (.hero prefix: hero.css loads later and would win otherwise) */
   .hero .hero__content { align-items: stretch; text-align: center; }

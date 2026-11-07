@@ -32,7 +32,7 @@
   --ring-perspective: 1000px;
   --arc-level: .2;                 /* set from COACH.arcLevel */
   position: relative;
-  margin-top: var(--space-l);
+  margin-top: var(--space-m);     /* phone; bigger from tablet up */
 }
 
 /* Keeps the photo area's height; info blocks flow below it on mobile */
@@ -421,6 +421,7 @@
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) {
   .coach__stage {
+    margin-top: var(--space-l);
     /* Fits one screen under the header */
     --stage-h: clamp(460px, calc(100svh - var(--header-h) - 4rem), 720px);
     --card-w: 234px;

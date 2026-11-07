@@ -35,7 +35,9 @@
      Photos stay flat (2D, always facing you). Only their POSITIONS move around
      a slightly oval globe; photos going to the back get smaller and fade out.
      Positions [lat, lon] (radians), one per photo, spread as evenly as possible. */
-  const OVAL = 0.92;             // height / width of the globe (1 = perfect circle)
+  // How flat the globe is: height / width (1 = perfect circle). From CSS --globe-oval,
+  // so phones can use a flatter, lower globe.
+  let OVAL = 0.92;
   const PERSPECTIVE = 1400;      // px — how strong the depth effect is
   const TILT = (-8 * Math.PI) / 180;   // view the globe slightly from above
   const SHRINK = 0.35;           // side / back photos get up to 35% smaller
@@ -54,7 +56,12 @@
 
   // Globe radius follows the globe size (CSS: radius = 40% of the globe width)
   let radius = globe.clientWidth * 0.4;
-  new ResizeObserver(() => { radius = globe.clientWidth * 0.4; }).observe(globe);
+  const measureGlobe = () => {
+    radius = globe.clientWidth * 0.4;
+    OVAL = parseFloat(getComputedStyle(globe).getPropertyValue('--globe-oval')) || 0.92;
+  };
+  measureGlobe();
+  new ResizeObserver(measureGlobe).observe(globe);
 
   /* ---------- 2. Panel ---------- */
   let activeCat = null;

@@ -394,6 +394,13 @@ textarea.field__input {
 .has-tg-float.tg-landed [data-telegram] { visibility: visible; }
 .tg-landed .tg-float { visibility: hidden; }
 
+/* Phone: tighter gap from section headings to their content */
+@media (max-width: 767px) {
+  .formats__list { margin-top: var(--space-m); }
+  .video__head { margin-bottom: var(--space-m); }
+  .contacts__list { margin-top: var(--space-m); }
+}
+
 @media (min-width: 768px) {
   .cta-strip__form { grid-template-columns: 1fr 1fr auto; }
   .formats__list { grid-template-columns: repeat(2, 1fr); }

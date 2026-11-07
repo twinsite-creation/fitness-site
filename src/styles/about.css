@@ -18,9 +18,11 @@
 
 .globe {
   --size: min(560px, 100cqi);
+  --globe-oval: .92;        /* height / width of the photo orbit (read by about.js) */
+  --globe-h: 1;             /* box height as a share of the width */
   position: relative;
   width: var(--size);
-  height: var(--size);
+  height: calc(var(--size) * var(--globe-h));
   margin-inline: auto;
 }
 
@@ -267,3 +269,35 @@
   .about__panel { max-width: none; }
 }
 
+/* ---------- Phone: the whole block fits one screen ---------- */
+@media (max-width: 767px) {
+  .about__head { margin-bottom: var(--space-xs); }
+  .about__grid { gap: var(--space-s); }          /* much smaller gap under the globe */
+
+  /* Smaller photos on a flatter, lower orbit */
+  .globe {
+    --globe-oval: .5;
+    --globe-h: .54;
+  }
+  .globe__tile { --tile-w: calc(var(--size) * .24); }
+
+  .about__arrow { width: 36px; height: 36px; }
+  .about__title { font-size: calc(2rem - 3px); }
+  .about__slides { margin-top: 0; }
+  .about__facts { margin-top: var(--space-xs); padding-block: var(--space-xs); gap: var(--space-xs) var(--space-m); }
+
+  .about__stats { gap: var(--space-xs); margin-top: var(--space-xs); }
+  .about__meter { font-size: 1rem; grid-template-columns: 5.6em 1fr; margin-top: 2px; }   /* numbers half size */
+  .about__cta { margin-top: var(--space-s); }
+}
+
+/* ---------- Tablet: compact enough for a landscape tablet screen ---------- */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .about__head { margin-bottom: var(--space-m); }
+  .globe {
+    --globe-oval: .72;
+    --globe-h: .8;
+  }
+  .about__meter { font-size: 1.5rem; }
+  .about__cta { margin-top: var(--space-m); }
+}
