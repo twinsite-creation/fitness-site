@@ -18,7 +18,7 @@ const COACH = {
 
   name: 'Anna Koval',
   role: 'Strength coach · 8 years in the gym',
-  facts: ['8+ years', '300+ clients', '1:1 coaching'],
+  facts: ['8+ years coaching', '300+ clients'],
 
   // Shown as barbell plates: full title engraved around the rim, short code + year in the centre
   // (where a real plate shows its weight). 1–3 work; `image` = scan for the lightbox
