@@ -83,3 +83,8 @@
   --slide-interval: 2s;
   --dur-slide: .8s;        /* hero slide change (text + photo) */
 }
+
+/* Phone: header 8px lower */
+@media (max-width: 767px) {
+  :root { --header-h: 4.5rem; }    /* 72px (80px from tablet up) */
+}
