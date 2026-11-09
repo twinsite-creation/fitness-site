@@ -32,6 +32,8 @@
   --color-overlay: rgba(10, 10, 12, .96);        /* mobile menu */
   --color-primary-tint: rgba(165, 16, 30, .2);   /* brand red 20% over video/photos */
   --color-glass: rgba(20, 20, 24, .72);          /* play button: dark translucent circle */
+  --color-backdrop: rgba(10, 10, 12, .78);       /* modal backdrop (success popup) */
+  --color-primary-ring: rgba(165, 16, 30, .35);  /* soft red ring around success check */
 
   /* --- Photo treatment (coach ring slides) --- */
   --photo-gray: .7;          /* grayscale amount */

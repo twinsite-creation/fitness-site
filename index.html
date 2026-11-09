@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="src/styles/sections.css?v=20261107g">
   <link rel="stylesheet" href="src/styles/coach.css?v=20261107g">
   <link rel="stylesheet" href="src/styles/about.css?v=20261107g">
+  <link rel="stylesheet" href="src/styles/popup.css?v=20261109a">
 
   <script src="src/js/main.js?v=20261107g" defer></script>
   <script src="src/js/reveal.js?v=20261107g" defer></script>
@@ -36,6 +37,7 @@
   <script src="src/js/telegram-float.js?v=20261107g" defer></script>
   <script src="src/js/counter.js?v=20261107g" defer></script>
   <script src="src/js/about.js?v=20261107g" defer></script>
+  <script src="src/js/form-success.js?v=20261109a" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -55,7 +57,7 @@
 
       <nav class="header__nav" id="site-nav" aria-label="Main" data-nav>
         <ul class="header__list">
-          <li><a class="header__link" href="#about">About</a></li>
+          <li><a class="header__link" href="#coach">About</a></li>
           <li><a class="header__link" href="#formats">Formats</a></li>
           <li><a class="header__link" href="#results">Results</a></li>
           <li><a class="header__link" href="#contacts">Contacts</a></li>
@@ -611,5 +613,23 @@
       </ul>
     </div>
   </footer>
+
+  <!-- ============ SUCCESS POPUP (forms) ============ -->
+  <dialog class="popup" aria-labelledby="popup-title" aria-describedby="popup-text" data-popup>
+    <div class="popup__card">
+      <span class="popup__glow" aria-hidden="true"></span>
+      <button class="popup__close" type="button" aria-label="Close" data-popup-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <svg class="popup__check" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle class="popup__check-ring" cx="32" cy="32" r="30"/>
+        <path class="popup__check-mark" d="M20 33l8 8 16-17"/>
+      </svg>
+      <p class="popup__label">Request received</p>
+      <h2 class="popup__title" id="popup-title">You’re <span class="accent">in</span><span data-popup-name></span></h2>
+      <p class="popup__text" id="popup-text">I’ll call you back within a day to pick a time for your first session.</p>
+      <button class="btn btn--primary popup__btn" type="button" data-popup-close autofocus>Got it</button>
+    </div>
+  </dialog>
 </body>
 </html>

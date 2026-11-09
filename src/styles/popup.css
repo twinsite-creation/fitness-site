@@ -1,0 +1,154 @@
+/* ============================================
+   Success popup — shown after a form is sent
+   ============================================ */
+
+.popup {
+  width: min(100% - 2 * var(--gutter), 30rem);
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--gutter));
+  margin: auto;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  overflow: visible;
+}
+
+.popup::backdrop {
+  background: var(--color-backdrop);
+  backdrop-filter: blur(6px);
+}
+
+.popup__card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xl) var(--space-l) var(--space-l);
+  text-align: center;
+  background: var(--color-surface);
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* thin brand-red line on top */
+.popup__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 var(--space-l) auto;
+  height: 2px;
+  background: var(--color-primary);
+}
+
+/* blurred neon spot behind the check */
+.popup__glow {
+  position: absolute;
+  top: -6rem;
+  left: 50%;
+  width: 16rem;
+  height: 12rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--color-neon);
+  filter: blur(70px);
+  opacity: .45;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.popup__close {
+  position: absolute;
+  top: var(--space-s);
+  right: var(--space-s);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: var(--line-thin) solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.popup__close:hover,
+.popup__close:focus-visible { color: var(--color-text); border-color: var(--color-line-soft); }
+.popup__close svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+
+/* animated check */
+.popup__check {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: var(--space-xs);
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  border-radius: 50%;
+  box-shadow: 0 0 0 .5rem var(--color-primary-ring);
+}
+.popup__check-ring { stroke: var(--color-primary); stroke-width: 2.5; stroke-dasharray: 189; stroke-dashoffset: 189; }
+.popup__check-mark { stroke: var(--color-text); stroke-width: 3.5; stroke-dasharray: 40; stroke-dashoffset: 40; }
+
+.popup__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.popup__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.popup__text {
+  max-width: 22rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+.popup__btn { margin-top: var(--space-s); min-width: 10rem; }
+
+/* --- Motion --- */
+.popup[open] .popup__card { animation: popup-in var(--dur-med) var(--ease-out) both; }
+.popup[open]::backdrop { animation: popup-fade var(--dur-med) var(--ease-out) both; }
+.popup[open] .popup__check-ring { animation: popup-draw var(--dur-slow) var(--ease-out) .15s forwards; }
+.popup[open] .popup__check-mark { animation: popup-draw var(--dur-med) var(--ease-out) .65s forwards; }
+.popup[open] .popup__label,
+.popup[open] .popup__title,
+.popup[open] .popup__text,
+.popup[open] .popup__btn { animation: popup-rise var(--dur-med) var(--ease-out) both; }
+.popup[open] .popup__title { animation-delay: .1s; }
+.popup[open] .popup__text { animation-delay: .2s; }
+.popup[open] .popup__btn { animation-delay: .3s; }
+
+.popup.is-closing .popup__card { animation: popup-out var(--dur-fast) var(--ease-soft) both; }
+.popup.is-closing::backdrop { animation: popup-fade var(--dur-fast) var(--ease-soft) reverse both; }
+
+@keyframes popup-in { from { opacity: 0; transform: translateY(1.5rem) scale(.96); } }
+@keyframes popup-out { to { opacity: 0; transform: translateY(.75rem) scale(.98); } }
+@keyframes popup-fade { from { opacity: 0; } }
+@keyframes popup-rise { from { opacity: 0; transform: translateY(.75rem); } }
+@keyframes popup-draw { to { stroke-dashoffset: 0; } }
+
+@media (min-width: 768px) {
+  .popup__card { padding: var(--space-xl) var(--space-xl) var(--space-l); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup[open] *,
+  .popup[open]::backdrop,
+  .popup.is-closing .popup__card { animation: none !important; }
+  .popup__check-ring,
+  .popup__check-mark { stroke-dashoffset: 0; }
+}
