@@ -41,7 +41,10 @@
   const PERSPECTIVE = 1400;      // px — how strong the depth effect is
   const TILT = (-8 * Math.PI) / 180;   // view the globe slightly from above
   const SHRINK = 0.35;           // side / back photos get up to 35% smaller
-  const ZOOM = 1.2;              // selected photo: +20%
+  // Selected photo: zoom and how far it slides to the globe centre (0–1).
+  // From CSS --globe-zoom / --globe-center: phones use a much bigger, centred photo.
+  let ZOOM = 1.2;
+  let CENTER = 0;
   // One position per photo, spread evenly over the globe (golden-angle spiral,
   // poles avoided) — works for any number of photos
   const POSITIONS = tiles.map((_, i) => {
@@ -51,17 +54,21 @@
   });
   const geo = tiles.map((tile, i) => {
     const [lat, lon] = POSITIONS[i % POSITIONS.length];
-    return { tile, lat, lon, cat: tile.dataset.cat, zoom: 1 };
+    return { tile, lat, lon, cat: tile.dataset.cat, zoom: 1, focus: 0 };
   });
 
   // Globe radius follows the globe size (CSS: radius = 40% of the globe width)
   let radius = globe.clientWidth * 0.4;
   const measureGlobe = () => {
     radius = globe.clientWidth * 0.4;
-    OVAL = parseFloat(getComputedStyle(globe).getPropertyValue('--globe-oval')) || 0.92;
+    const css = getComputedStyle(globe);
+    OVAL = parseFloat(css.getPropertyValue('--globe-oval')) || 0.92;
+    ZOOM = parseFloat(css.getPropertyValue('--globe-zoom')) || 1.2;
+    CENTER = parseFloat(css.getPropertyValue('--globe-center')) || 0;
   };
   measureGlobe();
   new ResizeObserver(measureGlobe).observe(globe);
+  phone.addEventListener('change', measureGlobe);
 
   /* ---------- 2. Panel ---------- */
   let activeCat = null;
@@ -136,11 +143,14 @@
       const depth = z2 / radius;                         // 1 = front, -1 = back
 
       const isActive = g.tile === activeTile;
-      g.zoom += ((isActive ? ZOOM : 1) - g.zoom) * Math.min(dt * 8, 1);
+      const ease = Math.min(dt * 8, 1);
+      g.zoom += ((isActive ? ZOOM : 1) - g.zoom) * ease;
+      g.focus += ((isActive ? CENTER : 0) - g.focus) * ease;
       const scale = persp * (1 - SHRINK * (1 - Math.max(depth, 0))) * g.zoom;
+      const pull = 1 - g.focus;                          // 0 = photo sits in the globe centre
       const opacity = Math.min(Math.max((depth - 0.05) / 0.5, 0), 1);
 
-      g.tile.style.transform = `translate(${(x * persp).toFixed(1)}px, ${(y2 * persp).toFixed(1)}px) scale(${scale.toFixed(3)})`;
+      g.tile.style.transform = `translate(${(x * persp * pull).toFixed(1)}px, ${(y2 * persp * pull).toFixed(1)}px) scale(${scale.toFixed(3)})`;
       g.tile.style.opacity = opacity.toFixed(3);
       g.tile.style.zIndex = Math.round(depth * 100) + 100 + (isActive ? 200 : 0);
       g.tile.classList.toggle('is-back', opacity < 0.3);

@@ -20,6 +20,8 @@
   --size: min(560px, 100cqi);
   --globe-oval: .92;        /* height / width of the photo orbit (read by about.js) */
   --globe-h: 1;             /* box height as a share of the width */
+  --globe-zoom: 1.2;        /* selected photo scale (read by about.js) */
+  --globe-center: 0;        /* 0–1: how far the selected photo slides to the centre (about.js) */
   position: relative;
   width: var(--size);
   height: calc(var(--size) * var(--globe-h));
@@ -277,9 +279,18 @@
   /* Smaller photos on a flatter, lower orbit */
   .globe {
     --globe-oval: .5;
-    --globe-h: .54;
+    --globe-h: .78;
+    --globe-zoom: 3.6;      /* selected photo 3× bigger than before (1.2 × 3) */
+    --globe-center: 1;      /* …and centred, so it stays inside the globe box */
   }
   .globe__tile { --tile-w: calc(var(--size) * .24); }
+  /* No cached raster on the zoomed photo, so it stays sharp at 3.6× */
+  /* Border and corners divided by the zoom, so after scaling they look normal */
+  .globe__tile.is-current {
+    will-change: auto;
+    border-width: calc(var(--line-thin) / var(--globe-zoom));
+    border-radius: calc(var(--radius-m) / var(--globe-zoom));
+  }
 
   .about__arrow { width: 36px; height: 36px; }
   .about__title { font-size: calc(2rem - 3px); }
