@@ -27,7 +27,8 @@
   <link rel="stylesheet" href="src/styles/sections.css?v=20261107g">
   <link rel="stylesheet" href="src/styles/coach.css?v=20261107g">
   <link rel="stylesheet" href="src/styles/about.css?v=20261109a">
-  <link rel="stylesheet" href="src/styles/popup.css?v=20261109a">
+  <link rel="stylesheet" href="src/styles/popup.css?v=20261111a">
+  <link rel="stylesheet" href="src/styles/booking.css?v=20261111a">
 
   <script src="src/js/main.js?v=20261107g" defer></script>
   <script src="src/js/reveal.js?v=20261107g" defer></script>
@@ -37,7 +38,8 @@
   <script src="src/js/telegram-float.js?v=20261107g" defer></script>
   <script src="src/js/counter.js?v=20261107g" defer></script>
   <script src="src/js/about.js?v=20261109a" defer></script>
-  <script src="src/js/form-success.js?v=20261109a" defer></script>
+  <script src="src/js/form-success.js?v=20261111a" defer></script>
+  <script src="src/js/booking.js?v=20261111a" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -62,7 +64,7 @@
           <li><a class="header__link" href="#results">Results</a></li>
           <li><a class="header__link" href="#contacts">Contacts</a></li>
         </ul>
-        <a class="btn btn--primary header__cta" href="#contacts">Book a session</a>
+        <a class="btn btn--primary header__cta" href="#booking">Book a session</a>
       </nav>
     </div>
   </header>
@@ -100,7 +102,7 @@
             </div>
           </div>
 
-          <a class="hero__link" href="#contacts">
+          <a class="hero__link" href="#booking">
             Book a session
             <span class="hero__link-arrow" aria-hidden="true">→</span>
           </a>
@@ -378,7 +380,7 @@
               <p class="about__note">* Estimate for a 70 kg person, rest between sets included.</p>
             </div>
 
-            <a class="btn btn--primary about__cta" href="#contacts">Book a session</a>
+            <a class="btn btn--primary about__cta" href="#booking">Book a session</a>
           </div>
         </div>
       </div>
@@ -433,6 +435,34 @@
             <p class="format-card__text">Plan, video check-ins, weekly review.</p>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ============ 5b. BOOKING — schedule + book a session (demo data, see tasks/05-booking.md) ============ -->
+    <section class="section booking" id="booking" aria-labelledby="booking-title" data-booking>
+      <div class="container">
+        <header class="booking__head">
+          <div>
+            <p class="eyebrow" data-reveal>Book a session</p>
+            <h2 class="section-title" id="booking-title" data-reveal>Pick <span class="accent">your time</span></h2>
+          </div>
+          <div class="booking__filters" role="group" aria-label="Training format" data-reveal data-booking-filters></div>
+        </header>
+
+        <div class="booking__panel" data-reveal>
+          <span class="booking__glow" aria-hidden="true"></span>
+
+          <div class="booking__month" data-booking-month></div>
+          <div class="booking__days" role="group" aria-label="Choose a day" data-booking-days></div>
+
+          <div class="booking__day-head">
+            <h3 class="booking__date" tabindex="-1" data-booking-date aria-live="polite"></h3>
+            <span class="booking__count" data-booking-count></span>
+          </div>
+
+          <ul class="booking__list" data-booking-list></ul>
+          <p class="booking__empty" data-booking-empty hidden>No free sessions this day. Pick another date.</p>
+        </div>
       </div>
     </section>
 
@@ -613,6 +643,36 @@
       </ul>
     </div>
   </footer>
+
+  <!-- ============ BOOKING DIALOG (booking.js) ============ -->
+  <dialog class="popup booking-dialog" aria-labelledby="booking-dialog-title" data-booking-dialog>
+    <form class="popup__card booking-dialog__card" method="dialog" data-booking-form>
+      <button class="popup__close" type="button" aria-label="Close" data-booking-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="popup__label">Your session</p>
+      <h2 class="popup__title booking-dialog__title" id="booking-dialog-title" data-booking-summary-title></h2>
+      <dl class="booking-dialog__summary">
+        <div><dt>Date</dt><dd data-booking-summary-date></dd></div>
+        <div><dt>Time</dt><dd data-booking-summary-time></dd></div>
+        <div><dt>Place</dt><dd data-booking-summary-place></dd></div>
+      </dl>
+      <label class="field">
+        <span class="field__label">Name</span>
+        <input class="field__input" type="text" name="name" autocomplete="name" placeholder="Your name" required>
+      </label>
+      <label class="field">
+        <span class="field__label">Phone</span>
+        <input class="field__input" type="tel" name="phone" autocomplete="tel" placeholder="+1 (000) 000-0000" required>
+      </label>
+      <label class="field">
+        <span class="field__label">Email</span>
+        <input class="field__input" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+      </label>
+      <button class="btn btn--primary booking-dialog__btn" type="submit">Confirm booking</button>
+      <p class="booking-dialog__note">Free cancellation up to 12 hours before.</p>
+    </form>
+  </dialog>
 
   <!-- ============ SUCCESS POPUP (forms) ============ -->
   <dialog class="popup" aria-labelledby="popup-title" aria-describedby="popup-text" data-popup>

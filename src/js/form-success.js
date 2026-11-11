@@ -5,10 +5,16 @@
   if (!popup || !forms.length || typeof popup.showModal !== 'function') return;
 
   const nameSlot = popup.querySelector('[data-popup-name]');
+  const label = popup.querySelector('.popup__label');
+  const text = popup.querySelector('.popup__text');
+  const DEFAULT = { label: label.textContent, text: text.textContent };
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let lastFocus = null;
 
-  const open = (name) => {
+  // options: { label, text } — booking.js passes its own date and time
+  const open = (name, options = {}) => {
+    label.textContent = options.label || DEFAULT.label;
+    text.textContent = options.text || DEFAULT.text;
     const first = (name || '').trim().split(/\s+/)[0];
     nameSlot.textContent = first ? `, ${first}` : '';
     lastFocus = document.activeElement;
@@ -41,6 +47,8 @@
   popup.addEventListener('click', (e) => {
     if (e.target.closest('[data-popup-close]') || e.target === popup) close();
   });
+
+  window.showSuccessPopup = open;
 
   forms.forEach((form) => {
     form.addEventListener('submit', (e) => {
